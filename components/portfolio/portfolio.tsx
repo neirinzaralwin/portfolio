@@ -2,6 +2,7 @@
 
 import { BlurFadeImages } from "./image-grid";
 import { SlideIn, FadeIn } from "../ui/transition";
+import SkillMarquee from "./skill-marquee";
 
 const Portfolio = () => {
   return (
@@ -24,6 +25,10 @@ const Portfolio = () => {
           dolorum.
         </FadeIn>
       </div>
+
+      <FadeIn>
+        <SkillMarquee />
+      </FadeIn>
 
       <BlurFadeImages />
     </div>

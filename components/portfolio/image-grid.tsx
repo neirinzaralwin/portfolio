@@ -1,7 +1,6 @@
 import { FadeIn } from "../ui/transition";
 import Iphone15Pro from "../ui/devices/iphone-15pro-ui";
 import Link from "next/link";
-import { TextReveal } from "../ui/typography";
 import { ArrowRight } from "lucide-react";
 
 interface ImageGridProps {
