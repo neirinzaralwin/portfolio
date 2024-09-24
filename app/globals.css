@@ -32,4 +32,11 @@ body {
   .italic {
     font-family: var(--font-sfpro-italic);
   }
+
+  .gradient-text {
+    background: linear-gradient(to bottom, #ffffff, #808080);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
 }
