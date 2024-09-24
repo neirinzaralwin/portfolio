@@ -8,7 +8,7 @@ const Hero = () => {
       <div className="flex flex-col justify-center items-center h-screen text-3xl md:text-6xl">
         <div className="flex flex-row text-gray-500">
           <div className="font-extralight italic pr-4">
-            <SlideIn>hello! I'm</SlideIn>
+            <SlideIn>Hello! I'm</SlideIn>
           </div>
           <SlideIn>Nei Rin Zara Lwin</SlideIn>
         </div>

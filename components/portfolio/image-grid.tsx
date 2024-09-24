@@ -1,6 +1,9 @@
+"use client";
+
 import { FadeIn } from "../ui/transition";
 import Iphone15Pro from "../ui/devices/iphone-15pro-ui";
 import Link from "next/link";
+import { TextReveal } from "../ui/typography";
 import { ArrowRight } from "lucide-react";
 
 interface ImageGridProps {
@@ -49,7 +52,7 @@ export function BlurFadeImages() {
               href={"#contact"}
               className="px-4 py-2 rounded-full border border-white/50 flex items-center gap-4 group"
             >
-              <p>Playstore</p>
+              <TextReveal>Playstore</TextReveal>
               <ArrowRight
                 size={20}
                 className="group-hover:translate-x-1 transition-transform"
@@ -60,7 +63,7 @@ export function BlurFadeImages() {
               href={"#contact"}
               className="px-4 py-2 rounded-full border border-white/50 flex items-center gap-4 group"
             >
-              <p>Appstore</p>
+              <TextReveal>Appstore</TextReveal>
               <ArrowRight
                 size={20}
                 className="group-hover:translate-x-1 transition-transform"

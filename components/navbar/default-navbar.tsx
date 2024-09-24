@@ -43,9 +43,9 @@ const Navbar = () => {
   return (
     <>
       <Transition viewport={{ once: true }}>
-        <div className="fixed top-0 w-full z-100">
+        <div className="fixed top-0 w-full z-40">
           <div className="flex justify-center text-white/70 pt-6">
-            <div className="hidden md:inline-flex items-center justify-center px-8 py-3 rounded-full bg-black/50 backdrop-blur-lg border-t border-white/15">
+            <div className="hidden md:inline-flex items-center justify-center px-8 py-3 rounded-full bg-black">
               <ul className="flex flex-row space-x-8 items-center">
                 {navLinks.map((link, index) => (
                   <li key={index}>

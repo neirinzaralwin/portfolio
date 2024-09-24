@@ -9,7 +9,7 @@ const Portfolio = () => {
     <div className="flex flex-col mx-10 md:mx-20 my-10">
       <FadeIn>
         <div className="flex flex-row text-start">
-          <div className="pr-4 italic text-xl md:text-4xl font-extralight text-gray-500">
+          <div className="pr-2 text-2xl md:text-4xl font-extralight text-gray-500">
             Work-Life's
           </div>
           <h1 className="text-2xl md:text-4xl text-white/70 mb-5 gradient-text">
