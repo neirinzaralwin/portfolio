@@ -25,17 +25,23 @@ const secondRow = reviews.slice(reviews.length / 2);
 
 const SkillMarquee = () => {
   return (
-    <div className="relative flex h-[200px] w-full flex-col items-center justify-center overflow-hidden  md:shadow-xl">
+    <div className="relative flex h-[150] w-full flex-col items-center justify-center overflow-hidden  md:shadow-xl">
       <Marquee pauseOnHover className="[--duration:30s]">
-        {firstRow.map((review) => (
-          <div className="text-3xl font-bold text-gray-500">
+        {firstRow.map((review, index) => (
+          <div
+            key={review + index}
+            className="text-3xl font-bold text-gray-500"
+          >
             {review.toLocaleUpperCase()}
           </div>
         ))}
       </Marquee>
       <Marquee reverse pauseOnHover className="[--duration:30s]">
-        {secondRow.map((review) => (
-          <div className="text-3xl font-bold text-gray-500">
+        {secondRow.map((review, index) => (
+          <div
+            key={review + index}
+            className="text-3xl font-bold text-gray-500"
+          >
             {review.toLocaleUpperCase()}
           </div>
         ))}

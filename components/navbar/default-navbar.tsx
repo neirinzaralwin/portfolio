@@ -9,7 +9,8 @@ import { Transition } from "@/components/ui/transition";
 
 const navLinks = [
   { title: "About", path: "#about" },
-  { title: "Portfolio", path: "#portfolio" },
+  { title: "Experience", path: "#experience" },
+  { title: "Projects", path: "#projects" },
 ];
 
 const Navbar = () => {
@@ -45,7 +46,7 @@ const Navbar = () => {
       <Transition viewport={{ once: true }}>
         <div className="fixed top-0 w-full z-40">
           <div className="flex justify-center text-white/70 pt-6">
-            <div className="hidden md:inline-flex items-center justify-center px-8 py-3 rounded-full bg-black">
+            <div className="hidden md:inline-flex items-center justify-center px-8 py-3 rounded-full bg-black/50 backdrop-blur-md border-white/10 border-t ">
               <ul className="flex flex-row space-x-8 items-center">
                 {navLinks.map((link, index) => (
                   <li key={index}>
@@ -57,7 +58,6 @@ const Navbar = () => {
                     </Link>
                   </li>
                 ))}
-                {/* contact us */}
                 <li className="group">
                   <Link
                     href={"#contact"}

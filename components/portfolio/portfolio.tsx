@@ -6,32 +6,25 @@ import SkillMarquee from "./skill-marquee";
 
 const Portfolio = () => {
   return (
-    <div className="flex flex-col mx-10 md:mx-20 my-10">
-      <FadeIn>
-        <div className="flex flex-row text-start">
-          <div className="pr-2 text-2xl md:text-4xl font-extralight text-gray-500">
-            Work-Life's
-          </div>
-          <h1 className="text-2xl md:text-4xl text-white/70 mb-5 gradient-text">
-            Balance
-          </h1>
-        </div>
-      </FadeIn>
-      <div className="text-gray-500 w-full md:w-2/3 text-lg md:text-2xl mb-20">
+    <section id="projects">
+      <div className="flex flex-col mx-10 md:mx-20 my-16">
         <FadeIn>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque
-          excepturi, perferendis delectus porro saepe dolore minima? Inventore
-          alias rerum fuga. Id ab a et quos similique est excepturi doloremque
-          dolorum.
+          <SkillMarquee />
         </FadeIn>
+
+        <FadeIn>
+          <div className="flex flex-row text-start mt-16">
+            <div className="pr-2 text-2xl md:text-4xl font-extralight text-gray-500">
+              Outshined
+            </div>
+            <h1 className="text-2xl md:text-4xl text-white/70 mb-5 gradient-text">
+              Projects
+            </h1>
+          </div>
+        </FadeIn>
+        <BlurFadeImages />
       </div>
-
-      <FadeIn>
-        <SkillMarquee />
-      </FadeIn>
-
-      <BlurFadeImages />
-    </div>
+    </section>
   );
 };
 
