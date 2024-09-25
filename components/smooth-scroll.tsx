@@ -22,6 +22,10 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
 export function scrollToSection(id: string) {
   const element = document.getElementById(id);
   if (element) {
-    element.scrollIntoView({ behavior: "smooth" });
+    element.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+      inline: "nearest",
+    });
   }
 }
