@@ -1,7 +1,7 @@
 "use client";
 
 import { BlurFadeImages } from "./image-grid";
-import { SlideIn, FadeIn } from "../ui/transition";
+import { FadeIn } from "../ui/transition";
 import SkillMarquee from "./skill-marquee";
 
 const Portfolio = () => {

@@ -42,7 +42,7 @@ const renderComponent = (item: ImageGridProps) => (
 
 export function BlurFadeImages() {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-20 p-5 mb-[500px]">
+    <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-20 p-5">
       {imageGridItems.map((item, index) => (
         <div className="flex flex-col items-center justify-start">
           <div className="h-[300px] w-full">{renderComponent(item)}</div>

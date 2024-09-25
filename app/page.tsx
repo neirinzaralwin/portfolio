@@ -3,6 +3,7 @@ import Hero from "@/components/hero/hero";
 import Portfolio from "@/components/portfolio/portfolio";
 import Experience from "@/components/experience/experience";
 import Timeline from "@/lib/interfaces/timeline";
+import { ContactUs } from "@/components/contact-us/contact-us";
 
 const expList: Timeline[] = [
   {
@@ -75,6 +76,22 @@ export default function Home() {
       <Hero />
       <Experience timeline={expList} />
       <Portfolio />
+      <ContactUs
+        email="zaralwinneirin@gmail.com"
+        social_handle={[
+          {
+            _id: "1",
+            platform: "linkedin",
+            url: "https://www.linkedin.com/in/zar-alwin-neirin-6b1b4b1b7/",
+            imageUrl:
+              "https://image.similarpng.com/very-thumbnail/2020/07/Linkedin-logo-on-transparent-Background-PNG-.png",
+          },
+        ]}
+        about={{
+          phoneNumber: "+66945959233",
+          address: "Bangkok, Thailand",
+        }}
+      />
     </div>
   );
 }
