@@ -6,11 +6,12 @@ import { Menu, X, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { TextReveal } from "@/components/ui/typography";
 import { Transition } from "@/components/ui/transition";
+import { scrollToSection } from "../smooth-scroll";
 
 const navLinks = [
-  { title: "About", path: "#about" },
-  { title: "Experience", path: "#experience" },
-  { title: "Projects", path: "#projects" },
+  { title: "About", path: "about" },
+  { title: "Experience", path: "experience" },
+  { title: "Projects", path: "projects" },
 ];
 
 const Navbar = () => {
@@ -22,6 +23,11 @@ const Navbar = () => {
 
   const closeNav = () => {
     setNav(false);
+  };
+
+  const handleLinkClick = (id: string) => {
+    scrollToSection(id);
+    closeNav();
   };
 
   const menuVariants = {
@@ -46,29 +52,37 @@ const Navbar = () => {
       <Transition viewport={{ once: true }}>
         <div className="fixed top-0 w-full z-40">
           <div className="flex justify-center text-white/70 pt-6">
-            <div className="hidden md:inline-flex items-center justify-center px-8 py-3 rounded-full bg-black/50 backdrop-blur-md border-white/10 border-t ">
+            <div className="hidden md:inline-flex items-center justify-center px-8 py-3 rounded-full bg-black/50 backdrop-blur-md">
               <ul className="flex flex-row space-x-8 items-center">
                 {navLinks.map((link, index) => (
                   <li key={index}>
-                    <Link
+                    <a
                       href={link.path}
                       className="hover:text-white transition-colors duration-300"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleLinkClick(link.path);
+                      }}
                     >
                       {link.title}
-                    </Link>
+                    </a>
                   </li>
                 ))}
                 <li className="group">
-                  <Link
-                    href={"#contact"}
+                  <a
+                    href="#contact"
                     className="px-4 py-2 rounded-full border border-white/50 flex items-center gap-4 group"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleLinkClick("contact");
+                    }}
                   >
                     <TextReveal>Let&apos;s talk</TextReveal>
                     <ArrowRight
                       size={20}
                       className="group-hover:rotate-90 transition-transform"
                     />
-                  </Link>
+                  </a>
                 </li>
               </ul>
             </div>
@@ -103,11 +117,17 @@ const Navbar = () => {
             <ul className="text-4xl my-28 text-center space-y-8">
               {navLinks.map((link, index) => (
                 <li key={index}>
-                  <Link href={link.path} onClick={closeNav}>
+                  <a
+                    href={`#${link.path}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleLinkClick(link.path);
+                    }}
+                  >
                     <p className="text-white/70 hover:text-white transition-colors duration-300">
                       {link.title}
                     </p>
-                  </Link>
+                  </a>
                 </li>
               ))}
             </ul>

@@ -2,7 +2,7 @@
 import { ReactNode, useEffect } from "react";
 import Lenis from "@studio-freight/lenis";
 
-export default function SmoothScroll({ children }: { children: ReactNode }) {
+export function SmoothScroll({ children }: { children: ReactNode }) {
   useEffect(() => {
     window.scrollTo(0, 0);
 
@@ -16,5 +16,12 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
     requestAnimationFrame(raf);
   }, []);
 
-  return children;
+  return <>{children}</>;
+}
+
+export function scrollToSection(id: string) {
+  const element = document.getElementById(id);
+  if (element) {
+    element.scrollIntoView({ behavior: "smooth" });
+  }
 }
