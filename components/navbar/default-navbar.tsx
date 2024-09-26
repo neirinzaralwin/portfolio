@@ -16,7 +16,7 @@ const navLinks = [
 const Navbar = () => {
   const [nav, setNav] = useState(false);
 
-  const toggelNav = () => {
+  const toggleNav = () => {
     setNav(!nav);
   };
 
@@ -87,33 +87,13 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* mobile menu */}
-          <div className="flex justify-between px-4 py-2 mx-auto md:hidden">
-            <div
-              className="cursor-pointer p-2 bg-black/50 backdrop-blur-lg border-t border-white/15 rounded z-100"
-              onClick={toggelNav}
-            >
-              {nav ? (
-                <X
-                  size={24}
-                  className="text-white/70 hover:text-white transition-colors duration-300"
-                />
-              ) : (
-                <Menu
-                  size={24}
-                  className="text-white/70 hover:text-white transition-colors duration-300"
-                />
-              )}
-            </div>
-          </div>
-
           <motion.div
             initial={false}
             animate={nav ? "open" : "closed"}
             variants={menuVariants}
-            className="fixed top-0 left-0 w-full bg-black/50 backdrop-blur-lg z-40"
+            className="py-10 fixed top-0 left-0 w-full bg-black/50 backdrop-blur-md z-40"
           >
-            <ul className="text-4xl my-28 text-center space-y-8">
+            <ul className="text-3xl text-center py-10 space-y-4">
               {navLinks.map((link, index) => (
                 <li key={index}>
                   <a
@@ -129,8 +109,45 @@ const Navbar = () => {
                   </a>
                 </li>
               ))}
+              <li className="group">
+                <a
+                  href="#contact"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleLinkClick("contact");
+                  }}
+                >
+                  <p className="text-white/70 hover:text-white transition-colors duration-300 flex items-center justify-center gap-4">
+                    <TextReveal>Let&apos;s talk</TextReveal>
+                    <ArrowRight
+                      size={20}
+                      className="group-hover:rotate-90 transition-transform"
+                    />
+                  </p>
+                </a>
+              </li>
             </ul>
           </motion.div>
+
+          {/* mobile menu */}
+          <div className="fixed top-0 left-0 flex justify-between px-4 py-4 mx-auto md:hidden z-50">
+            <div
+              className="cursor-pointer p-2 bg-black/50 backdrop-blur-md border-t border-white/15 rounded"
+              onClick={toggleNav}
+            >
+              {nav ? (
+                <X
+                  size={24}
+                  className="text-white/70 hover:text-white transition-colors duration-300"
+                />
+              ) : (
+                <Menu
+                  size={24}
+                  className="text-white/70 hover:text-white transition-colors duration-300"
+                />
+              )}
+            </div>
+          </div>
         </div>
       </Transition>
     </>

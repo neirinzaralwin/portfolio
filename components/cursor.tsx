@@ -1,13 +1,7 @@
 "use client";
 
 import { useCursorVariants } from "@/utils/context";
-import {
-  useMotionValue,
-  useSpring,
-  motion,
-  AnimationProps,
-  Variants,
-} from "framer-motion";
+import { useMotionValue, useSpring, motion, Variants } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { useEffect } from "react";
 
