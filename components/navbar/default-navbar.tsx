@@ -118,7 +118,7 @@ const Navbar = () => {
                   }}
                 >
                   <p className="text-white/70 hover:text-white transition-colors duration-300 flex items-center justify-center gap-4">
-                    <TextReveal>Let&apos;s talk</TextReveal>
+                    Let&apos;s talk
                     <ArrowRight
                       size={20}
                       className="group-hover:rotate-90 transition-transform"
