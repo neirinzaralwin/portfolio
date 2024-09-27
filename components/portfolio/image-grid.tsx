@@ -14,17 +14,15 @@ interface ImageGridProps {
   appstore?: string;
 }
 
-const lorem: string =
-  "lorem ipusm dolor sit amet, consectetur adipisicing elit. Neque excepturi, perferendis delectus porro saepe dolore minima? Inventore alias rerum fuga. Id ab a et quos similique est excepturi doloremque dolorum.";
-
 const imageGridItems: ImageGridProps[] = [
   {
     imageUrl:
-      "https://play-lh.googleusercontent.com/fVzvphTK0b1ITSOLAvtUTcV_Ex5MEM6WNZNfsrTV4zIAuVdDth_S4CcOjYnLVeCIdkY=w480-h960-rw",
-    title: "Shwe Phone Shein",
-    description: "Jewellery App",
-    appstore: "",
-    playstore: "",
+      "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource126/v4/3e/1e/c3/3e1ec3c2-6a17-3c11-c68c-522a25a35e61/5a74b6f2-e4e7-4b70-a7e9-19755361dfec_Apple_iPhone_11_Pro_Max_Screenshot_1.png/460x0w.webp",
+    title: "Wisdom Tree",
+    description: "Bookstore app",
+    appstore: "https://apps.apple.com/th/app/wisdom-tree-library/id6464262162",
+    playstore:
+      "https://play.google.com/store/apps/details?id=com.hapeyecoltd.wisdomtree",
   },
   {
     imageUrl: "https://joyful.lmsmm.com/images/logo.png",
@@ -59,31 +57,34 @@ export function BlurFadeImages() {
             <div className="w-full">{renderComponent(item)}</div>
             {/* button */}
             <div className="flex flex-row mb-8 gap-3">
-              <Link
-                href={item.playstore ?? ""}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-4 py-2 rounded-full border border-white/50 flex items-center gap-4 group"
-              >
-                <TextReveal>Playstore</TextReveal>
-                <ArrowRight
-                  size={20}
-                  className="group-hover:translate-x-1 transition-transform"
-                />
-              </Link>
-
-              <Link
-                href={item.appstore ?? ""}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-4 py-2 rounded-full border border-white/50 flex items-center gap-4 group"
-              >
-                <TextReveal>Appstore</TextReveal>
-                <ArrowRight
-                  size={20}
-                  className="group-hover:translate-x-1 transition-transform"
-                />
-              </Link>
+              {item.playstore && (
+                <Link
+                  href={item.playstore}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-4 py-2 rounded-full border border-white/50 flex items-center gap-4 group"
+                >
+                  <TextReveal>Playstore</TextReveal>
+                  <ArrowRight
+                    size={20}
+                    className="group-hover:translate-x-1 transition-transform"
+                  />
+                </Link>
+              )}
+              {item.appstore && (
+                <Link
+                  href={item.appstore}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-4 py-2 rounded-full border border-white/50 flex items-center gap-4 group"
+                >
+                  <TextReveal>Appstore</TextReveal>
+                  <ArrowRight
+                    size={20}
+                    className="group-hover:translate-x-1 transition-transform"
+                  />
+                </Link>
+              )}
             </div>
             <FadeIn key={index}>
               <Image
@@ -91,7 +92,7 @@ export function BlurFadeImages() {
                 alt={item.title}
                 width={400}
                 height={400}
-                className="rounded-lg shadow-lg aspect-square"
+                className="rounded-lg shadow-lg aspect-square object-cover transition-all duration-300 hover:filter-none filter grayscale"
               />
             </FadeIn>
           </div>

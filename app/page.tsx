@@ -4,6 +4,7 @@ import Portfolio from "@/components/portfolio/portfolio";
 import Experience from "@/components/experience/experience";
 import Timeline from "@/lib/interfaces/timeline";
 import { ContactUs } from "@/components/contact-us/contact-us";
+import ColleageReviews from "@/components/reviews/colleage-reviews";
 
 const expList: Timeline[] = [
   {
@@ -76,6 +77,7 @@ export default function Home() {
       <Hero />
       <Experience timeline={expList} />
       <Portfolio />
+      <ColleageReviews />
       <ContactUs
         email="zaralwinneirin@gmail.com"
         social_handle={[
