@@ -84,7 +84,7 @@ export default function Home() {
           {
             _id: "1",
             platform: "linkedin",
-            url: "https://www.linkedin.com/in/zar-alwin-neirin-6b1b4b1b7/",
+            url: "https://www.linkedin.com/in/nei-rin-zara-lwin/",
             imageUrl:
               "https://image.similarpng.com/very-thumbnail/2020/07/Linkedin-logo-on-transparent-Background-PNG-.png",
           },
