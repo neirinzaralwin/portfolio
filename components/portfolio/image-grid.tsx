@@ -53,7 +53,7 @@ export function BlurFadeImages() {
     <div className="flex-col">
       <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-20 p-5">
         {imageGridItems.map((item, index) => (
-          <div className="flex flex-col items-center justify-start">
+          <div className="flex flex-col items-center justify-start" key={index}>
             <div className="w-full">{renderComponent(item)}</div>
             {/* button */}
             <div className="flex flex-row mb-8 gap-3">

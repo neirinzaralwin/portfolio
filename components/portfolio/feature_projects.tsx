@@ -19,9 +19,8 @@ const FeatureProjects = () => {
           <Image
             src="https://scontent.fbkk22-3.fna.fbcdn.net/v/t39.30808-6/346955679_1313785589486043_1207697121383871436_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=86c6b0&_nc_ohc=hQIaLwuofQAQ7kNvgEC9wL1&_nc_ht=scontent.fbkk22-3.fna&_nc_gid=Abx8HM9P_3dj-Rpk_cRxuxv&oh=00_AYBfDuBl8aFY1fPrmLkCE6S-SpbvD8E9rFKJBQ12KUA0zA&oe=66FB621D"
             alt="Food.com.mm"
-            layout="fill"
-            objectFit="cover"
-            className="rounded-lg shadow-lg transition duration-300 group-hover:filter group-hover:grayscale-0 grayscale"
+            fill
+            className="rounded-lg shadow-lg transition duration-300 group-hover:filter group-hover:grayscale-0 grayscale object-cover"
           />
           <a
             href="https://food.com.mm/"
@@ -37,9 +36,8 @@ const FeatureProjects = () => {
           <Image
             src="https://www.goldsilvercentral.com.sg/wp-content/uploads/2017/02/GSAP_WebsiteElements-01.png?x10759"
             alt="Gold Silver Central"
-            layout="fill"
-            objectFit="cover"
-            className="rounded-lg shadow-lg transition duration-300 group-hover:filter group-hover:grayscale-0 grayscale"
+            fill
+            className="rounded-lg shadow-lg transition duration-300 group-hover:filter group-hover:grayscale-0 grayscale object-cover"
           />
           <a
             href="https://www.goldsilvercentral.com.sg/"

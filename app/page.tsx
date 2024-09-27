@@ -77,7 +77,7 @@ export default function Home() {
       <Hero />
       <Experience timeline={expList} />
       <Portfolio />
-      <ColleageReviews />
+      {/* <ColleageReviews /> */}
       <ContactUs
         email="zaralwinneirin@gmail.com"
         social_handle={[
