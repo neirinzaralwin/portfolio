@@ -1,6 +1,7 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
+  darkMode: "media",
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -9,9 +10,10 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        background: "var(--background, #ffffff)", // fallback color
+        foreground: "var(--foreground, #171717)", // fallback color
       },
+
       animation: {
         meteor: "meteor 5s linear infinite",
         marquee: "marquee var(--duration) linear infinite",
