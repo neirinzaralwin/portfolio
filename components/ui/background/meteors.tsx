@@ -1,54 +1,61 @@
-import { useEffect, useState } from "react";
+// "use client";
 
-interface MeteorsProps {
-  number?: number;
-}
+// import { useEffect, useState } from "react";
+// import { cn } from "@/utils/cn";
 
-export const Meteors = ({ number = 20 }: MeteorsProps) => {
-  const [meteorStyles, setMeteorStyles] = useState<Array<React.CSSProperties>>(
-    []
-  );
+// interface MeteorsProps {
+//   number?: number;
+// }
 
-  const generateMeteorStyles = () => {
-    return [...new Array(number)].map(() => ({
-      top: -5,
-      left: Math.floor(Math.random() * window.innerWidth) + "px",
-      animationDelay: Math.random() * 1 + 0.2 + "s",
-      animationDuration: Math.floor(Math.random() * 8 + 2) + "s",
-    }));
-  };
+// export const Meteors = ({ number = 20 }: MeteorsProps) => {
+//   const [meteorStyles, setMeteorStyles] = useState<Array<React.CSSProperties>>(
+//     []
+//   );
 
-  useEffect(() => {
-    const updateMeteorStyles = () => {
-      setMeteorStyles(generateMeteorStyles());
-    };
+//   const generateMeteorStyles = () => {
+//     if (typeof window === "undefined") return [];
+//     return [...new Array(number)].map(() => ({
+//       top: -5,
+//       left: Math.floor(Math.random() * window.innerWidth) + "px",
+//       animationDelay: Math.random() * 1 + 0.2 + "s",
+//       animationDuration: Math.floor(Math.random() * 8 + 2) + "s",
+//     }));
+//   };
 
-    updateMeteorStyles();
+//   useEffect(() => {
+//     const updateMeteorStyles = () => {
+//       setMeteorStyles(generateMeteorStyles());
+//     };
 
-    const handleResize = debounce(() => {
-      updateMeteorStyles();
-    }, 300); // Adjust the debounce delay as needed
+//     if (typeof window !== "undefined") {
+//       updateMeteorStyles();
+//       window.addEventListener("resize", updateMeteorStyles);
+//     }
 
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [number]);
+//     return () => {
+//       if (typeof window !== "undefined") {
+//         window.removeEventListener("resize", updateMeteorStyles);
+//       }
+//     };
+//   }, [number]);
 
-  return (
-    <div className="meteors-container">
-      {meteorStyles.map((style, index) => (
-        <div key={index} className="meteor" style={style}></div>
-      ))}
-    </div>
-  );
-};
-function debounce(func: () => void, wait: number) {
-  let timeout: NodeJS.Timeout | null = null;
-  return function (...args: any[]) {
-    if (timeout) clearTimeout(timeout);
-    timeout = setTimeout(() => {
-      func.apply(null);
-    }, wait);
-  };
-}
+//   return (
+//     <>
+//       {meteorStyles.map((style, idx) => (
+//         // Meteor Head
+//         <span
+//           key={idx}
+//           className={cn(
+//             "pointer-events-none absolute left-1/2 top-1/2 size-0.5 rotate-[215deg] animate-meteor rounded-full bg-slate-500 shadow-[0_0_0_1px_#ffffff10]"
+//           )}
+//           style={style}
+//         >
+//           {/* Meteor Tail */}
+//           <div className="pointer-events-none absolute top-1/2 -z-10 h-px w-[50px] -translate-y-1/2 bg-gradient-to-r from-slate-500 to-transparent" />
+//         </span>
+//       ))}
+//     </>
+//   );
+// };
+
+// export default Meteors;
