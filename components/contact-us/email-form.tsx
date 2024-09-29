@@ -69,7 +69,7 @@ export default function emailForm({
             <motion.div
               whileHover="whileHover"
               initial="initial"
-              className="text-2xl md:text-4xl font-bold py-2"
+              className="text-lg md:text-2xl lg:text-4xl font-bold py-2"
             >
               <TextReveal>{email}</TextReveal>
             </motion.div>
