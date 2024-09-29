@@ -1,7 +1,4 @@
-"use client";
-
 import { useEffect, useState } from "react";
-import { cn } from "@/utils/cn";
 
 interface MeteorsProps {
   number?: number;
@@ -28,29 +25,30 @@ export const Meteors = ({ number = 20 }: MeteorsProps) => {
 
     updateMeteorStyles();
 
-    window.addEventListener("resize", updateMeteorStyles);
+    const handleResize = debounce(() => {
+      updateMeteorStyles();
+    }, 300); // Adjust the debounce delay as needed
+
+    window.addEventListener("resize", handleResize);
     return () => {
-      window.removeEventListener("resize", updateMeteorStyles);
+      window.removeEventListener("resize", handleResize);
     };
   }, [number]);
 
   return (
-    <>
-      {meteorStyles.map((style, idx) => (
-        // Meteor Head
-        <span
-          key={idx}
-          className={cn(
-            "pointer-events-none absolute left-1/2 top-1/2 size-0.5 rotate-[215deg] animate-meteor rounded-full bg-slate-500 shadow-[0_0_0_1px_#ffffff10]"
-          )}
-          style={style}
-        >
-          {/* Meteor Tail */}
-          <div className="pointer-events-none absolute top-1/2 -z-10 h-px w-[50px] -translate-y-1/2 bg-gradient-to-r from-slate-500 to-transparent" />
-        </span>
+    <div className="meteors-container">
+      {meteorStyles.map((style, index) => (
+        <div key={index} className="meteor" style={style}></div>
       ))}
-    </>
+    </div>
   );
 };
-
-export default Meteors;
+function debounce(func: () => void, wait: number) {
+  let timeout: NodeJS.Timeout | null = null;
+  return function (...args: any[]) {
+    if (timeout) clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      func.apply(null);
+    }, wait);
+  };
+}
