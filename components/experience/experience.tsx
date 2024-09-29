@@ -21,8 +21,8 @@ const Experience = ({ timeline }: ExperienceProps) => {
   return (
     <section id="experience">
       <div className="relative pb-2 pt-16">
-        <FadeIn>
-          <div className="flex flex-row text-start mx-20">
+        <FadeIn className=" mx-10 md:mx-20">
+          <div className="flex flex-row text-start">
             <div className="pr-2 text-2xl md:text-4xl font-extralight text-gray-500">
               Work-Life&apos;s
             </div>
@@ -31,15 +31,13 @@ const Experience = ({ timeline }: ExperienceProps) => {
             </h1>
           </div>
         </FadeIn>
-        <div className="text-gray-500 w-full md:w-2/3 text-lg md:text-2xl mb-20 mx-20">
-          <FadeIn>
-            A skillful mobile developer with 4+ years of experience in cross-
-            platform app development with well-designed architectures and design
-            patterns. Experienced in web development and machine learning
-            skills. Passionate about crafting efficient and innovative
-            solutions.
-          </FadeIn>
-        </div>
+
+        <FadeIn className="text-gray-500 mb-20 mx-10 md:mx-20 text-lg md:text-xl">
+          A skillful mobile developer with 4+ years of experience in cross-
+          platform app development with well-designed architectures and design
+          patterns. Experienced in web development and machine learning skills.
+          Passionate about crafting efficient and innovative solutions.
+        </FadeIn>
         <span className="blob absolute top-[20%] left-0 w-1/3 h-5/6 blur-[100px] -z-10" />
         <FadeIn>
           <div className="flex flex-row text-start mx-10 md:mx-20">
