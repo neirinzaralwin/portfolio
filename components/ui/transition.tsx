@@ -3,8 +3,6 @@
 import { cn } from "@/utils/cn";
 import { HTMLMotionProps, motion } from "framer-motion";
 
-interface Props extends HTMLMotionProps<"span"> {}
-
 export const SlideIn = ({
   className,
   initial,
@@ -12,7 +10,7 @@ export const SlideIn = ({
   transition,
   viewport,
   ...rest
-}: Props) => {
+}: HTMLMotionProps<"span">) => {
   const init = initial ? initial : { opacity: 0, y: "100%" };
   const inView = whileInView ? whileInView : { opacity: 1, y: 0 };
   const trans = transition ? transition : { duration: 0.5, delay: 0.3 };
@@ -29,13 +27,12 @@ export const SlideIn = ({
   );
 };
 
-interface TransitionProps extends HTMLMotionProps<"div"> {}
 export const Transition = ({
   initial,
   whileInView,
   transition,
   ...rest
-}: TransitionProps) => {
+}: HTMLMotionProps<"div">) => {
   const init = initial ? initial : { opacity: 0 };
   const inView = whileInView ? whileInView : { opacity: 1 };
   const trans = transition ? transition : { duration: 0.8, delay: 0.4 };
@@ -50,8 +47,7 @@ export const Transition = ({
   );
 };
 
-interface FadeInProps extends HTMLMotionProps<"div"> {}
-export const FadeIn = ({ children, ...rest }: FadeInProps) => {
+export const FadeIn = ({ children, ...rest }: HTMLMotionProps<"div">) => {
   return (
     <motion.div
       initial={{ opacity: 0 }}

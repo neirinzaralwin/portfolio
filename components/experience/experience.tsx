@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { Transition, FadeIn } from "../ui/transition";
-import { PerspectiveText } from "../ui/typography";
 import Timeline from "@/lib/interfaces/timeline";
 import { formatDate } from "@/lib";
 
@@ -24,7 +23,7 @@ const Experience = ({ timeline }: ExperienceProps) => {
         <FadeIn>
           <div className="flex flex-row text-start mx-20">
             <div className="pr-2 text-2xl md:text-4xl font-extralight text-gray-500">
-              Work-Life's
+              Work-Life&apos;s
             </div>
             <h1 className="text-2xl md:text-4xl text-white/70 mb-5 gradient-text">
               Balance

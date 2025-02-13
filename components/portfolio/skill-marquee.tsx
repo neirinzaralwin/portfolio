@@ -1,6 +1,5 @@
 "use client";
 
-import { cn } from "@/utils/cn";
 import Marquee from "../ui/marquee";
 
 const reviews = [

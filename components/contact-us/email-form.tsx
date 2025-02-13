@@ -1,13 +1,18 @@
-import { ContactProps } from "./contact-us";
 import { motion } from "framer-motion";
 import { Transition } from "../ui/transition";
 import { TextReveal } from "../ui/typography";
 import Link from "next/link";
 import { Input, Textarea } from "../ui/input";
 
+interface SocialHandle {
+  _id: string;
+  url: string;
+  platform: string;
+}
+
 interface EmailFormProps {
   email: string;
-  social_handle: any[]; // Replace 'any' with the correct type for social_handle
+  social_handle: SocialHandle[];
   about: { phoneNumber: string; address: string };
 }
 
