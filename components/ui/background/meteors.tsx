@@ -26,7 +26,7 @@ export const Meteors = ({ number = 20 }: MeteorsProps) => {
   }, [number]);
 
   return (
-    <>
+    <div className="hidden md:block">
       {[...meteorStyles].map((style, idx) => (
         // Meteor Head
         <span
@@ -40,7 +40,7 @@ export const Meteors = ({ number = 20 }: MeteorsProps) => {
           <div className="pointer-events-none absolute top-1/2 -z-10 h-px w-[50px] -translate-y-1/2 bg-gradient-to-r from-slate-500 to-transparent" />
         </span>
       ))}
-    </>
+    </div>
   );
 };
 

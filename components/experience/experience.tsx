@@ -30,7 +30,7 @@ const Experience = ({ timeline }: ExperienceProps) => {
             </h1>
           </div>
         </FadeIn>
-        <div className="text-gray-500 w-full md:w-2/3 text-lg md:text-2xl mb-20 mx-20">
+        <div className="text-gray-500 w-full md:w-2/3 flex flex-row text-start mx-10 md:mx-20 mb-20">
           <FadeIn>
             A skillful mobile developer with 4+ years of experience in cross-
             platform app development with well-designed architectures and design
