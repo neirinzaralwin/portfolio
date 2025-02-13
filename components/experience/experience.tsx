@@ -62,9 +62,7 @@ const Experience = ({ timeline }: ExperienceProps) => {
               <div className="flex items-center justify-between md:gap-8">
                 <span className="max-md:hidden">0{index + 1}</span>
                 <div className="md:text-5xl text-xl md:font-semibold flex-1 text-white/70">
-                  <PerspectiveText hover={hover === index}>
-                    {exp.jobTitle}
-                  </PerspectiveText>
+                  {exp.jobTitle}
                 </div>
                 <div className="max-md:text-sm max-md:flex flex-col text-foreground/50">
                   <span className="italic">

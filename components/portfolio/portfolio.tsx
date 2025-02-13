@@ -24,7 +24,6 @@ const Portfolio = () => {
           </div>
         </FadeIn>
         <BlurFadeImages />
-
         <FeatureProjects />
       </div>
     </section>
