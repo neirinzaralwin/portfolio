@@ -32,6 +32,7 @@ const Navbar = () => {
   const menuVariants = {
     open: {
       x: 0,
+      opacity: 1, // Add opacity for fade-in
       transition: {
         duration: 0.8, // Increased duration for smoother animation
         ease: [0.25, 0.1, 0.25, 1.0], // Adjusted ease values for a smoother effect
@@ -39,6 +40,7 @@ const Navbar = () => {
     },
     closed: {
       x: "-100%",
+      opacity: 0, // Add opacity for fade-out
       transition: {
         duration: 0.8, // Increased duration for smoother animation
         ease: [0.25, 0.1, 0.25, 1.0], // Adjusted ease values for a smoother effect
@@ -86,70 +88,71 @@ const Navbar = () => {
               </ul>
             </div>
           </div>
-
-          <motion.div
-            initial={false}
-            animate={nav ? "open" : "closed"}
-            variants={menuVariants}
-            className="py-10 fixed top-0 left-0 w-full bg-black/50 backdrop-blur-md z-40"
-          >
-            <ul className="text-3xl text-center py-10 space-y-4">
-              {navLinks.map((link, index) => (
-                <li key={index}>
-                  <a
-                    href={`#${link.path}`}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleLinkClick(link.path);
-                    }}
-                  >
-                    <p className="text-white/70 hover:text-white transition-colors duration-300">
-                      {link.title}
-                    </p>
-                  </a>
-                </li>
-              ))}
-              <li className="group">
+        </div>
+      </Transition>
+      {/* Conditionally render the mobile menu */}
+      {nav && (
+        <motion.div
+          initial={false}
+          animate={nav ? "open" : "closed"}
+          variants={menuVariants}
+          className="py-10 fixed top-0 left-0 w-full bg-black/50 backdrop-blur-md z-40"
+        >
+          <ul className="text-3xl text-center py-10 space-y-4">
+            {navLinks.map((link, index) => (
+              <li key={index}>
                 <a
-                  href="#contact"
+                  href={`#${link.path}`}
                   onClick={(e) => {
                     e.preventDefault();
-                    handleLinkClick("contact");
+                    handleLinkClick(link.path);
                   }}
                 >
-                  <p className="text-white/70 hover:text-white transition-colors duration-300 flex items-center justify-center gap-4">
-                    Let&apos;s talk
-                    <ArrowRight
-                      size={20}
-                      className="group-hover:rotate-90 transition-transform"
-                    />
+                  <p className="text-white/70 hover:text-white transition-colors duration-300">
+                    {link.title}
                   </p>
                 </a>
               </li>
-            </ul>
-          </motion.div>
-
-          {/* mobile menu */}
-          <div className="fixed top-0 left-0 flex justify-between px-4 py-4 mx-auto md:hidden z-50">
-            <div
-              className="cursor-pointer p-2 bg-black/50 backdrop-blur-md border-t border-white/15 rounded"
-              onClick={toggleNav}
-            >
-              {nav ? (
-                <X
-                  size={24}
-                  className="text-white/70 hover:text-white transition-colors duration-300"
-                />
-              ) : (
-                <Menu
-                  size={24}
-                  className="text-white/70 hover:text-white transition-colors duration-300"
-                />
-              )}
-            </div>
-          </div>
+            ))}
+            <li className="group">
+              <a
+                href="#contact"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleLinkClick("contact");
+                }}
+              >
+                <p className="text-white/70 hover:text-white transition-colors duration-300 flex items-center justify-center gap-4">
+                  Let&apos;s talk
+                  <ArrowRight
+                    size={20}
+                    className="group-hover:rotate-90 transition-transform"
+                  />
+                </p>
+              </a>
+            </li>
+          </ul>
+        </motion.div>
+      )}
+      {/* mobile menu */}
+      <div className="fixed top-0 left-0 flex justify-between px-4 py-4 mx-auto md:hidden z-50">
+        <div
+          className="cursor-pointer p-2 bg-black/50 backdrop-blur-md border-t border-white/15 rounded"
+          onClick={toggleNav}
+        >
+          {nav ? (
+            <X
+              size={24}
+              className="text-white/70 hover:text-white transition-colors duration-300"
+            />
+          ) : (
+            <Menu
+              size={24}
+              className="text-white/70 hover:text-white transition-colors duration-300"
+            />
+          )}
         </div>
-      </Transition>
+      </div>
     </>
   );
 };
