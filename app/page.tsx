@@ -8,6 +8,26 @@ import ColleageReviews from "@/components/reviews/colleage-reviews";
 
 const expList: Timeline[] = [
   {
+    company_name: "WeR.inc",
+    summary: "Summary",
+    sequence: 1,
+    startDate: "2024-09-01",
+    endDate: "Present",
+    jobTitle: "Senior Software Engineer",
+    jobLocation: "Japan",
+    bulletPoints: [
+      "Product Ownership: Took on responsibilities beyond software engineering, making key product decisions, including tech stack selection and development strategies.",
+      "Full-Stack Development: Led development using Fastify for backend, React for frontend, and Flutter for mobile applications, ensuring a cohesive ecosystem.",
+      "Data Science & Machine Learning: Used Python for data science applications, including contributions to a time-series model for stock price prediction.",
+      "Tourist-Focused Restaurant Recommendation: Built a nearby restaurant search and recommendation system tailored for tourists visiting Japan.",
+      "Payment Gateway Setup: Integrated Stripe for seamless and secure payment processing within the platform.",
+    ],
+    forEducation: false,
+    enabled: true,
+    _id: "1",
+  },
+
+  {
     company_name: "Gold Silver Central",
     summary: "Summary",
     sequence: 1,
@@ -25,7 +45,7 @@ const expList: Timeline[] = [
     ],
     forEducation: false,
     enabled: true,
-    _id: "1",
+    _id: "2",
   },
 
   {
@@ -47,7 +67,7 @@ const expList: Timeline[] = [
     ],
     forEducation: false,
     enabled: true,
-    _id: "2",
+    _id: "3",
   },
 
   {
@@ -66,7 +86,7 @@ const expList: Timeline[] = [
     ],
     forEducation: false,
     enabled: true,
-    _id: "3",
+    _id: "4",
   },
 ];
 
