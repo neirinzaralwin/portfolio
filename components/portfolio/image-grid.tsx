@@ -92,7 +92,7 @@ export function BlurFadeImages() {
                 alt={item.title}
                 width={400}
                 height={400}
-                className="rounded-lg shadow-lg aspect-square object-cover transition-all duration-300 hover:filter-none filter grayscale"
+                className="rounded-lg shadow-lg aspect-square object-cover transition-all duration-300"
               />
             </FadeIn>
           </div>

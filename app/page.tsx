@@ -88,6 +88,12 @@ export default function Home() {
             imageUrl:
               "https://image.similarpng.com/very-thumbnail/2020/07/Linkedin-logo-on-transparent-Background-PNG-.png",
           },
+          {
+            _id: "2",
+            platform: "github",
+            url: "https://github.com/neirinzaralwin",
+            imageUrl: "",
+          },
         ]}
         about={{
           phoneNumber: "+66945959233",
