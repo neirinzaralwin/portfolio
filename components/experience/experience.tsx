@@ -21,7 +21,7 @@ const Experience = ({ timeline }: ExperienceProps) => {
     <section id="experience">
       <div className="relative pb-2 pt-16">
         <FadeIn>
-          <div className="flex flex-row text-start mx-20">
+          <div className="flex flex-row text-start mx-10 md:mx-20">
             <div className="pr-2 text-2xl md:text-4xl font-extralight text-gray-500">
               Work-Life&apos;s
             </div>
