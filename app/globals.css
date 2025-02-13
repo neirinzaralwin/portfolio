@@ -22,6 +22,7 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: var(--font_sfpro);
+  overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
 @layer utilities {
