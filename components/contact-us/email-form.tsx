@@ -113,7 +113,7 @@ function ContactInfo({ email, social_handle, about }: EmailFormProps) {
             key={social._id}
             transition={{ delay: 0.4 + index * 0.1 }}
           >
-            <Link href={social.url}>
+            <Link href={social.url} target="_blank" rel="noopener noreferrer">
               <TextReveal>{social.platform}</TextReveal>
             </Link>
           </Transition>
