@@ -7,32 +7,12 @@ import { ContactUs } from "@/components/contact-us/contact-us";
 
 const expList: Timeline[] = [
   {
-    company_name: "WeR.inc",
-    summary: "Summary",
-    sequence: 1,
-    startDate: "2024-09-01",
-    endDate: "Present",
-    jobTitle: "Senior Software Engineer",
-    jobLocation: "Japan",
-    bulletPoints: [
-      "Product Ownership: Took on responsibilities beyond software engineering, making key product decisions, including tech stack selection and development strategies.",
-      "Full-Stack Development: Led development using Fastify for backend, React for frontend, and Flutter for mobile applications, ensuring a cohesive ecosystem.",
-      "Data Science & Machine Learning: Used Python for data science applications, including contributions to a time-series model for stock price prediction.",
-      "Tourist-Focused Restaurant Recommendation: Built a nearby restaurant search and recommendation system tailored for tourists visiting Japan.",
-      "Payment Gateway Setup: Integrated Stripe for seamless and secure payment processing within the platform.",
-    ],
-    forEducation: false,
-    enabled: true,
-    _id: "1",
-  },
-
-  {
     company_name: "Gold Silver Central",
     summary: "Summary",
     sequence: 1,
-    startDate: "2023-03-01",
-    endDate: "2024-08-31",
-    jobTitle: "Mobile & Web Developer",
+    startDate: "2023",
+    endDate: "2025",
+    jobTitle: "Sr. Mobile Developer / Mid Backend Developer",
     jobLocation: "Singapore",
     bulletPoints: [
       "Gold-Saving Wallet Development: Led the design and implementation of a blockchain-based gold-saving wallet, enhancing secure asset management.",
@@ -44,15 +24,15 @@ const expList: Timeline[] = [
     ],
     forEducation: false,
     enabled: true,
-    _id: "2",
+    _id: "1",
   },
 
   {
     company_name: "App.com.mm",
     summary: "Summary",
     sequence: 1,
-    startDate: "2021-11-01",
-    endDate: "2023-02-28",
+    startDate: "2021",
+    endDate: "2023",
     jobTitle: "Senior Mobile Developer",
     jobLocation: "Myanmar",
     bulletPoints: [
@@ -66,15 +46,15 @@ const expList: Timeline[] = [
     ],
     forEducation: false,
     enabled: true,
-    _id: "3",
+    _id: "2",
   },
 
   {
     company_name: "Tech plus solution",
     summary: "Summary",
     sequence: 1,
-    startDate: "2021-03-01",
-    endDate: "2023-10-31",
+    startDate: "2020",
+    endDate: "2021",
     jobTitle: "Junior Mobile Developer",
     jobLocation: "Myanmar",
     bulletPoints: [
@@ -85,7 +65,7 @@ const expList: Timeline[] = [
     ],
     forEducation: false,
     enabled: true,
-    _id: "4",
+    _id: "3",
   },
 ];
 

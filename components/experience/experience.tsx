@@ -64,19 +64,9 @@ const Experience = ({ timeline }: ExperienceProps) => {
                   {exp.jobTitle}
                 </div>
                 <div className="max-md:text-sm max-md:flex flex-col text-foreground/50">
-                  <span className="italic">
-                    {formatDate(exp.startDate).month +
-                      ", " +
-                      formatDate(exp.startDate).year}
-                  </span>
+                  <span className="italic">{exp.startDate}</span>
                   <span className="max-md:hidden">{" - "}</span>
-                  <span className="italic">
-                    {exp.endDate === "Present"
-                      ? "Present"
-                      : formatDate(exp.endDate).month +
-                        ", " +
-                        formatDate(exp.endDate).year}
-                  </span>
+                  <span className="italic">{exp.endDate}</span>
                 </div>
               </div>
               <div className="md:pl-12 py-2 text-foreground/50 max-md:text-sm flex items-center justify-between">
