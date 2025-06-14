@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { Transition, FadeIn } from "../ui/transition";
 import Timeline from "@/lib/interfaces/timeline";
-import { formatDate } from "@/lib";
 
 interface ExperienceProps {
   timeline: Timeline[];
