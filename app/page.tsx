@@ -11,7 +11,7 @@ const expList: Timeline[] = [
     summary: "Summary",
     sequence: 1,
     startDate: "2023",
-    endDate: "2025",
+    endDate: "2025 (May)",
     jobTitle: "Sr. Mobile Developer / Mid Backend Developer",
     jobLocation: "Singapore",
     bulletPoints: [
