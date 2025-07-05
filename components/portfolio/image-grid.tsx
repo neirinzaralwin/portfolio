@@ -2,8 +2,7 @@
 
 import { FadeIn } from "../ui/transition";
 import Link from "next/link";
-import { TextReveal } from "../ui/typography";
-import { ArrowRight } from "lucide-react";
+import { SiAppstore, SiGoogleplay } from "react-icons/si";
 import Image from "next/image";
 
 interface ImageGridProps {
@@ -12,6 +11,10 @@ interface ImageGridProps {
   description: string;
   playstore?: string;
   appstore?: string;
+}
+
+interface BlurFadeImagesProps {
+  blackAndWhite?: boolean;
 }
 
 const imageGridItems: ImageGridProps[] = [
@@ -25,77 +28,87 @@ const imageGridItems: ImageGridProps[] = [
       "https://play.google.com/store/apps/details?id=com.hapeyecoltd.wisdomtree",
   },
   {
-    imageUrl: "https://joyful.lmsmm.com/images/logo.png",
+    imageUrl: "/assets/joyful_poster.png",
     title: "Joyful LMS",
     description: "LMS application for kids",
     appstore: "https://apps.apple.com/th/app/joyfullms/id6480043967",
   },
   {
-    imageUrl:
-      "https://is1-ssl.mzstatic.com/image/thumb/Purple112/v4/8b/34/04/8b34043f-6807-d125-5c2b-5482598d0b81/AppIcon-0-0-1x_U007emarketing-0-7-0-0-85-220.png/460x0w.webp",
+    imageUrl: "/assets/gogo_travel_poster.png",
     title: "Go Go Travel",
     description: "Travel app for Myanmar",
     appstore: "https://apps.apple.com/th/app/go-go-travel/id6473775786",
   },
 ];
 
-const renderComponent = (item: ImageGridProps) => (
-  <div className="flex-col items-center justify-center my-5">
-    <div className="block gradient-text text-lg md:text-xl py-2">
-      {item.title}
+const renderComponent = (
+  item: ImageGridProps,
+  index: number,
+  blackAndWhite: boolean
+) => (
+  <div className="relative group cursor-pointer transition-transform duration-300 ease-out hover:scale-105">
+    <div className="overflow-hidden rounded-lg shadow-lg relative aspect-square">
+      <Image
+        src={item.imageUrl}
+        alt={item.title}
+        fill
+        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+        className={`object-cover rounded-lg transition-all duration-500 ease-out ${
+          blackAndWhite ? "grayscale" : ""
+        }`}
+      />
+
+      {/* Glassy hover overlay with title and links */}
+      <div className="absolute inset-0 rounded-lg bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 backdrop-blur-sm transition-all duration-500 ease-out flex flex-col justify-center items-center text-white p-4 will-change-transform">
+        <div className="text-center bg-black/40 backdrop-blur-md p-6 rounded-2xl border border-white/20 shadow-2xl transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 ease-out">
+          <div className="text-xl font-bold mb-2 text-white drop-shadow-lg">
+            {item.title}
+          </div>
+          <div className="text-gray-200 text-sm mb-4 drop-shadow-md">
+            {item.description}
+          </div>
+          <div className="flex justify-center gap-3">
+            {item.appstore && (
+              <Link
+                href={item.appstore}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white p-2 rounded transition-all duration-300 ease-out border border-white/30 hover:border-white/50 hover:scale-105"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <SiAppstore size={20} />
+              </Link>
+            )}
+            {item.playstore && (
+              <Link
+                href={item.playstore}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white p-2 rounded transition-all duration-300 ease-out border border-white/30 hover:border-white/50 hover:scale-105"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <SiGoogleplay size={20} />
+              </Link>
+            )}
+          </div>
+        </div>
+      </div>
     </div>
-    <div className="text-gray-500 inline-flex">{item.description}</div>
   </div>
 );
 
-export function BlurFadeImages() {
+export function BlurFadeImages({ blackAndWhite = false }: BlurFadeImagesProps) {
   return (
-    <div className="flex-col">
-      <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-20 p-5">
+    <div className="container py-8 mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mx-auto">
         {imageGridItems.map((item, index) => (
-          <div className="flex flex-col items-center justify-start" key={index}>
-            <div className="w-full">{renderComponent(item)}</div>
-            {/* button */}
-            <div className="flex flex-row mb-8 gap-3">
-              {item.playstore && (
-                <Link
-                  href={item.playstore}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-4 py-2 rounded-full border border-white/50 flex items-center gap-4 group"
-                >
-                  <TextReveal>Playstore</TextReveal>
-                  <ArrowRight
-                    size={20}
-                    className="group-hover:translate-x-1 transition-transform"
-                  />
-                </Link>
-              )}
-              {item.appstore && (
-                <Link
-                  href={item.appstore}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-4 py-2 rounded-full border border-white/50 flex items-center gap-4 group"
-                >
-                  <TextReveal>Appstore</TextReveal>
-                  <ArrowRight
-                    size={20}
-                    className="group-hover:translate-x-1 transition-transform"
-                  />
-                </Link>
-              )}
-            </div>
-            <FadeIn key={index}>
-              <Image
-                src={item.imageUrl}
-                alt={item.title}
-                width={400}
-                height={400}
-                className="rounded-lg shadow-lg aspect-square object-cover transition-all duration-300"
-              />
-            </FadeIn>
-          </div>
+          <FadeIn
+            key={index}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
+            viewport={{ once: true }}
+          >
+            {renderComponent(item, index, blackAndWhite)}
+          </FadeIn>
         ))}
       </div>
     </div>
