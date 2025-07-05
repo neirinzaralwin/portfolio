@@ -4,7 +4,6 @@ import { FadeIn } from "../ui/transition";
 import Link from "next/link";
 import { SiAppstore, SiGoogleplay } from "react-icons/si";
 import Image from "next/image";
-import { useCursorVariants } from "@/utils/context";
 
 interface ImageGridProps {
   imageUrl: string;
@@ -29,14 +28,13 @@ const imageGridItems: ImageGridProps[] = [
       "https://play.google.com/store/apps/details?id=com.hapeyecoltd.wisdomtree",
   },
   {
-    imageUrl: "https://joyful.lmsmm.com/images/logo.png",
+    imageUrl: "/assets/joyful_poster.png",
     title: "Joyful LMS",
     description: "LMS application for kids",
     appstore: "https://apps.apple.com/th/app/joyfullms/id6480043967",
   },
   {
-    imageUrl:
-      "https://is1-ssl.mzstatic.com/image/thumb/Purple112/v4/8b/34/04/8b34043f-6807-d125-5c2b-5482598d0b81/AppIcon-0-0-1x_U007emarketing-0-7-0-0-85-220.png/460x0w.webp",
+    imageUrl: "/assets/gogo_travel_poster.png",
     title: "Go Go Travel",
     description: "Travel app for Myanmar",
     appstore: "https://apps.apple.com/th/app/go-go-travel/id6473775786",
@@ -48,11 +46,7 @@ const renderComponent = (
   index: number,
   blackAndWhite: boolean
 ) => (
-  <div
-    className={`relative group cursor-pointer transition-transform duration-300 ease-out hover:scale-105 ${
-      index % 2 === 0 ? "mt-0" : "mt-8"
-    }`}
-  >
+  <div className="relative group cursor-pointer transition-transform duration-300 ease-out hover:scale-105">
     <div className="overflow-hidden rounded-lg shadow-lg relative aspect-square">
       <Image
         src={item.imageUrl}
@@ -105,8 +99,8 @@ const renderComponent = (
 
 export function BlurFadeImages({ blackAndWhite = false }: BlurFadeImagesProps) {
   return (
-    <div className="container mx-auto py-8">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+    <div className="container py-8 mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mx-auto">
         {imageGridItems.map((item, index) => (
           <FadeIn
             key={index}
