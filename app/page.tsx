@@ -7,11 +7,31 @@ import { ContactUs } from "@/components/contact-us/contact-us";
 
 const expList: Timeline[] = [
   {
+    company_name: "Flying Rocket Co., Ltd.",
+    summary: "Summary",
+    sequence: 1,
+    startDate: "2024 December",
+    endDate: "2026 Feb",
+    jobTitle: "Sr. Mobile & Full Stack Developer",
+    jobLocation: "Thailand",
+    bulletPoints: [
+      "Layfist Thrift Marketplace: Developed the auction and product browsing experience for second-hand ladies accessories and items.",
+      "Clean Wardrobe Service: Built the end-to-end workflow for cleaning/refreshing ladies clothing, including status tracking and updates.",
+      "Boutique Shop Module: Implemented boutique storefront, inventory handling, and a smooth checkout flow.",
+      "Hotel PMS (Check-in/Check-out): Created real-time customer check-in/check-out flows with up-to-date room/guest status.",
+      "Channel Manager API Sync: Integrated channel manager APIs to keep availability and reservations consistent across channels.",
+      "SCB Thai QR Payments: Implemented SCB Bank Thai QR payments with payment confirmation and real-time reconciliation.",
+    ],
+    forEducation: false,
+    enabled: true,
+    _id: "1",
+  },
+  {
     company_name: "Gold Silver Central",
     summary: "Summary",
     sequence: 1,
-    startDate: "2023",
-    endDate: "2025 (May)",
+    startDate: "2022",
+    endDate: "2024",
     jobTitle: "Sr. Mobile Developer / Mid Backend Developer",
     jobLocation: "Singapore",
     bulletPoints: [
@@ -24,7 +44,7 @@ const expList: Timeline[] = [
     ],
     forEducation: false,
     enabled: true,
-    _id: "1",
+    _id: "2",
   },
 
   {
@@ -32,7 +52,7 @@ const expList: Timeline[] = [
     summary: "Summary",
     sequence: 1,
     startDate: "2021",
-    endDate: "2023",
+    endDate: "2022",
     jobTitle: "Senior Mobile Developer",
     jobLocation: "Myanmar",
     bulletPoints: [
@@ -46,7 +66,7 @@ const expList: Timeline[] = [
     ],
     forEducation: false,
     enabled: true,
-    _id: "2",
+    _id: "3",
   },
 
   {
@@ -65,7 +85,7 @@ const expList: Timeline[] = [
     ],
     forEducation: false,
     enabled: true,
-    _id: "3",
+    _id: "4",
   },
 ];
 
