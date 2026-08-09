@@ -1,84 +1,113 @@
-import { FadeIn } from "../ui/transition";
+"use client";
+
 import Image from "next/image";
+import { FadeIn } from "@/components/ui/transition";
+import { SectionTitle } from "@/components/ui/section-title";
+
+type FeaturedApp = {
+  index: string;
+  title: string;
+  description: string;
+  images: { src: string; alt: string }[];
+};
+
+const featuredApps: FeaturedApp[] = [
+  {
+    index: "01",
+    title: "Lady First",
+    description:
+      "A women-focused marketplace for buying and selling pre-loved fashion, bags, and beauty items. I worked on mood-based browsing, live bidding, and the trust-centered community experience — available on the App Store and Google Play.",
+    images: [
+      {
+        src: "/assets/ladyfirst_poster1.png",
+        alt: "Lady First app home screen",
+      },
+      {
+        src: "/assets/ladyfirst_poster2.png",
+        alt: "Lady First app browse screen",
+      },
+    ],
+  },
+  {
+    index: "02",
+    title: "Food.com.mm",
+    description:
+      "A food ordering platform for Myanmar that connects restaurants and vendors with customers. I contributed to browsing, ordering, and delivery flows so users can find meals and complete orders with less friction.",
+    images: [
+      {
+        src: "/assets/food.com.mm.poster.jpg",
+        alt: "Food.com.mm app screen",
+      },
+      {
+        src: "/assets/food.com.mm.poster1.jpg",
+        alt: "Food.com.mm promotional poster",
+      },
+    ],
+  },
+  {
+    index: "03",
+    title: "GoldSilver Central",
+    description:
+      "A Singapore bullion trading app for gold, silver, and platinum at real-time prices. I built mobile wallet, exchange, and market insight features that help users manage and trade physical precious metals with clarity.",
+    images: [
+      {
+        src: "/assets/gscmobile.jpg",
+        alt: "GoldSilver Central mobile app",
+      },
+      {
+        src: "/assets/gscposter.jpg",
+        alt: "GoldSilver Central promotional poster",
+      },
+    ],
+  },
+];
 
 const FeatureProjects = () => {
   return (
-    <>
-      <FadeIn>
-        <div className="flex flex-row text-start mt-16">
-          <div className="pr-2 text-2xl md:text-4xl font-extralight text-gray-500">
-            Best
-          </div>
-          <h1 className="text-2xl md:text-4xl text-white/70 mb-5 gradient-text">
-            Applications
-          </h1>
-        </div>
-      </FadeIn>
-      <div className="flex flex-wrap justify-center mt-8">
-        <div className="w-full lg:w-1/3 p-2 mb-4">
-          <h2 className="text-gray-500 text-xl md:text-2xl font-semibold mb-5">
-            Food.com.mm
-          </h2>
-          <div className="text-gray-500 w-full md:w-4/5 text-md md:text-md">
-            <FadeIn>
-              Food.com.mm is a food platform operated by Hap Eye Co., Ltd and is
-              available on App.com.mm. We always strive to provide a better
-              experience for Myanmar consumers by bringing together various
-              restaurants and food vendors on our platform. To make ordering
-              food easier, Food.com.mm provides a seamless service where
-              customers can browse available food options, place orders, and
-              enjoy a smooth delivery experience.
-            </FadeIn>
-          </div>
-        </div>
-        <Image
-          src={"/assets/food.com.mm.poster.jpg"}
-          alt="Project 1"
-          width={600}
-          height={450}
-          className="rounded-xl object-cover w-full md:w-1/2 lg:w-1/3 p-2"
-        />
-        <Image
-          src={"/assets/food.com.mm.poster1.jpg"}
-          alt="Project 1"
-          width={600}
-          height={450}
-          className="rounded-xls object-cover w-full md:w-1/2 lg:w-1/3 p-2"
-        />
-      </div>
+    <div className="mt-12 md:mt-16 px-4 sm:px-6 md:px-20">
+      <SectionTitle light="Featured" emphasis="Applications" />
 
-      <div className="flex flex-wrap justify-center mt-8">
-        <div className="w-full lg:w-1/3 p-2 mb-4">
-          <h2 className="text-gray-500 text-xl md:text-2xl font-semibold mb-5">
-            goldsilvercentral.com.sg
-          </h2>
-          <div className="text-gray-500 w-full md:w-4/5 text-md md:text-md">
-            <FadeIn>
-              GoldSilver Central Pte Ltd (UEN: 201107187N), a Singapore
-              registered company since 2011 specialises in physical bullion
-              trading in gold, silver and platinum at real-time pricing,
-              industry bullion supply, bullion buying and selling, collateral
-              loan and secured storage under GoldSilver Central’s Bullion
-              Storage Program at the Le Freeport.
-            </FadeIn>
-          </div>
-        </div>
-        <Image
-          src={"/assets/gscmobile.jpg"}
-          alt="Project 1"
-          width={600}
-          height={450}
-          className="rounded-xl object-cover w-full md:w-1/2 lg:w-1/3 p-2"
-        />
-        <Image
-          src={"/assets/gscposter.jpg"}
-          alt="Project 1"
-          width={600}
-          height={450}
-          className="rounded-xls object-cover w-full md:w-1/2 lg:w-1/3 p-2"
-        />
+      <div className="mt-10 md:mt-14 space-y-16 md:space-y-24">
+        {featuredApps.map((app, index) => (
+          <FadeIn key={app.index}>
+            <article
+              className={`grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start ${
+                index % 2 === 1 ? "lg:[&>*:first-child]:order-2" : ""
+              }`}
+            >
+              <div className="lg:col-span-5">
+                <p className="text-xs tracking-[0.2em] text-gray-500 mb-3">
+                  {app.index}
+                </p>
+                <h3 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-white/80 mb-4">
+                  {app.title}
+                </h3>
+                <p className="text-sm md:text-base text-gray-500 leading-relaxed max-w-md">
+                  {app.description}
+                </p>
+              </div>
+
+              <div className="lg:col-span-7 grid grid-cols-2 gap-3 sm:gap-4">
+                {app.images.map((image) => (
+                  <div
+                    key={image.src}
+                    className="relative aspect-square overflow-hidden rounded-xl bg-white/5"
+                  >
+                    <Image
+                      src={image.src}
+                      alt={image.alt}
+                      fill
+                      sizes="(max-width: 768px) 50vw, 30vw"
+                      className="object-cover"
+                    />
+                  </div>
+                ))}
+              </div>
+            </article>
+          </FadeIn>
+        ))}
       </div>
-    </>
+    </div>
   );
 };
 

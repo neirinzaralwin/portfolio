@@ -1,9 +1,12 @@
-import { motion } from "framer-motion";
-import { Transition } from "../ui/transition";
-import { TextReveal } from "../ui/typography";
+"use client";
+
 import Link from "next/link";
+import { FormEvent, useState } from "react";
+import { FaGithub, FaLinkedin, FaPhoneAlt } from "react-icons/fa";
+import { MdEmail, MdLocationOn } from "react-icons/md";
+import { FadeIn } from "../ui/transition";
 import { Input, Textarea } from "../ui/input";
-import { useState } from "react";
+import { cn } from "@/utils/cn";
 
 interface SocialHandle {
   _id: string;
@@ -17,20 +20,16 @@ interface EmailFormProps {
   about: { phoneNumber: string; address: string };
 }
 
-export default function emailForm({
+const fieldClass =
+  "w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-white/80 placeholder:text-gray-600 transition-colors focus:border-white/30 focus:outline-none focus-visible:border-white/40";
+
+const labelClass = "mb-2 block text-sm font-medium text-white/80";
+
+export default function EmailForm({
   email,
   social_handle,
   about,
 }: EmailFormProps) {
-  return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:pt-16">
-      <EmailFormFields />
-      <ContactInfo email={email} social_handle={social_handle} about={about} />
-    </div>
-  );
-}
-
-function EmailFormFields() {
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -40,7 +39,7 @@ function EmailFormFields() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitMessage, setSubmitMessage] = useState("");
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitMessage("");
@@ -74,137 +73,145 @@ function EmailFormFields() {
     }
   };
 
+  const socialIcon = (platform: string) => {
+    const name = platform.toLowerCase();
+    if (name.includes("linkedin")) return <FaLinkedin size={18} />;
+    if (name.includes("github")) return <FaGithub size={18} />;
+    return null;
+  };
+
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <div className="flex gap-4">
-        <Transition className="w-full">
-          <Input
-            id="full-name"
-            placeholder="Full name"
-            className="border-0 border-b rounded-none"
-            value={formData.fullName}
-            onChange={(e) =>
-              setFormData({ ...formData, fullName: e.target.value })
-            }
-            required
-          />
-        </Transition>
-        <Transition className="w-full">
-          <Input
-            id="email"
-            placeholder="Your email address"
-            type="email"
-            className="border-0 border-b rounded-none"
-            value={formData.email}
-            onChange={(e) =>
-              setFormData({ ...formData, email: e.target.value })
-            }
-            required
-          />
-        </Transition>
+    <FadeIn>
+      <div className="mb-8 flex flex-wrap items-center justify-center gap-2 sm:gap-3 text-xs text-gray-500 md:text-sm">
+        <a
+          href={`mailto:${email}`}
+          className="inline-flex max-w-full items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 transition-colors hover:border-white/25 hover:text-white/70"
+        >
+          <MdEmail size={14} className="shrink-0" />
+          <span className="truncate">{email}</span>
+        </a>
+        <a
+          href={`tel:${about.phoneNumber.replace(/\s/g, "")}`}
+          className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 transition-colors hover:border-white/25 hover:text-white/70"
+        >
+          <FaPhoneAlt size={12} className="shrink-0" />
+          {about.phoneNumber}
+        </a>
+        <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5">
+          <MdLocationOn size={14} className="shrink-0" />
+          {about.address}
+        </span>
       </div>
-      <div className="space-y-2">
-        <Transition>
+
+      <form onSubmit={handleSubmit} className="space-y-5">
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+          <div>
+            <label htmlFor="full-name" className={labelClass}>
+              Full name
+            </label>
+            <Input
+              id="full-name"
+              placeholder="Your name"
+              className={fieldClass}
+              value={formData.fullName}
+              onChange={(e) =>
+                setFormData({ ...formData, fullName: e.target.value })
+              }
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="email" className={labelClass}>
+              Email
+            </label>
+            <Input
+              id="email"
+              placeholder="you@example.com"
+              type="email"
+              className={fieldClass}
+              value={formData.email}
+              onChange={(e) =>
+                setFormData({ ...formData, email: e.target.value })
+              }
+              required
+            />
+          </div>
+        </div>
+
+        <div>
+          <label htmlFor="subject" className={labelClass}>
+            Subject
+          </label>
           <Input
             id="subject"
-            placeholder="Enter the subject"
-            className="border-0 border-b rounded-none"
+            placeholder="What is this about?"
+            className={fieldClass}
             value={formData.subject}
             onChange={(e) =>
               setFormData({ ...formData, subject: e.target.value })
             }
             required
           />
-        </Transition>
-      </div>
-      <div className="space-y-2">
-        <Transition>
+        </div>
+
+        <div>
+          <label htmlFor="message" className={labelClass}>
+            Message
+          </label>
           <Textarea
-            className="min-h-[100px] rounded-none border-0 border-b resize-none"
             id="message"
-            placeholder="Enter your message"
+            placeholder="Tell me a bit about your project or idea..."
+            className={cn(fieldClass, "min-h-[140px] resize-none")}
             value={formData.message}
             onChange={(e) =>
               setFormData({ ...formData, message: e.target.value })
             }
             required
           />
-        </Transition>
-      </div>
-      <div>
-        <Transition>
-          <motion.button
-            type="submit"
-            disabled={isSubmitting}
-            whileHover="whileHover"
-            initial="initial"
-            className="border border-white/30 px-8 py-2 rounded-3xl relative overflow-hidden disabled:opacity-50"
-          >
-            <TextReveal className="uppercase">
-              {isSubmitting ? "Sending..." : "Send"}
-            </TextReveal>
-          </motion.button>
-        </Transition>
+        </div>
+
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className={cn(
+            "w-full rounded-xl px-6 py-3.5 text-sm font-medium text-white transition-opacity disabled:opacity-50",
+            "bg-gradient-to-r from-[#668eab] to-[#003862]",
+            "border border-white/10 hover:opacity-90"
+          )}
+        >
+          {isSubmitting ? "Sending..." : "Send message"}
+        </button>
+
         {submitMessage && (
-          <Transition>
-            <p
-              className={`mt-4 text-sm ${
-                submitMessage.includes("successfully")
-                  ? "text-green-400"
-                  : "text-red-400"
-              }`}
-            >
-              {submitMessage}
-            </p>
-          </Transition>
+          <p
+            className={cn(
+              "text-center text-sm",
+              submitMessage.includes("successfully")
+                ? "text-green-400"
+                : "text-red-400"
+            )}
+          >
+            {submitMessage}
+          </p>
         )}
-      </div>
-    </form>
-  );
-}
+      </form>
 
-function ContactInfo({ email, social_handle, about }: EmailFormProps) {
-  return (
-    <div className="md:justify-self-start flex-col">
-      <div className="pb-4">
-        <Transition>
-          <span className="text-gray-500">Get in touch</span>
-        </Transition>
-        <Transition>
-          <motion.div
-            whileHover="whileHover"
-            initial="initial"
-            className="text-2xl md:text-4xl font-bold py-2"
-          >
-            <TextReveal>{email}</TextReveal>
-          </motion.div>
-        </Transition>
-        <Transition>
-          <motion.button
-            whileHover="whileHover"
-            initial="initial"
-            className="pb-1 text-white/70 underlines hover:cursor-pointerx"
-          >
-            <TextReveal>{about.phoneNumber}</TextReveal>
-          </motion.button>
-        </Transition>
-        <Transition>
-          <div className="text-gray-500">{about.address}</div>
-        </Transition>
-      </div>
-
-      <div className="flex md:gap-8 gap-4 mt-auto md:pb-16">
-        {social_handle.map((social, index) => (
-          <Transition
+      <div className="mt-10 flex items-center justify-center gap-6 border-t border-white/10 pt-8">
+        {social_handle.map((social) => (
+          <Link
             key={social._id}
-            transition={{ delay: 0.4 + index * 0.1 }}
+            href={social.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={social.platform}
+            className="text-gray-500 transition-colors hover:text-white/80"
           >
-            <Link href={social.url} target="_blank" rel="noopener noreferrer">
-              <TextReveal>{social.platform}</TextReveal>
-            </Link>
-          </Transition>
+            {socialIcon(social.platform) ?? (
+              <span className="text-sm">{social.platform}</span>
+            )}
+          </Link>
         ))}
       </div>
-    </div>
+    </FadeIn>
   );
 }
