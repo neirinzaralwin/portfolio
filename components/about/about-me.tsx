@@ -6,6 +6,7 @@ import { brandStops } from "@/lib/brand";
 export function AboutMe() {
   return (
     <section id="about-me" className="w-full px-4 sm:px-6 md:px-20 pt-4 md:pt-8">
+      <div className="w-full max-w-7xl mx-auto">
       <TextRevealWithHighlights
         text="I build cross-platform products with Flutter and Next.js, scalable backends with Node.js and Python, and practical AI features that improve real user workflows."
         highlights={[
@@ -42,6 +43,7 @@ export function AboutMe() {
         ]}
         className="[&_span]:!text-lg [&_span]:sm:!text-xl [&_span]:md:!text-2xl [&_span]:lg:!text-3xl [&_span]:xl:!text-4xl [&_span]:!font-semibold"
       />
+      </div>
     </section>
   );
 }

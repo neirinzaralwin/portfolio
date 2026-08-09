@@ -196,7 +196,7 @@ export default function EmailForm({
         )}
       </form>
 
-      <div className="mt-10 flex items-center justify-center gap-6 border-t border-white/10 pt-8">
+      <div className="mt-10 flex items-center justify-center gap-6 pt-8">
         {social_handle.map((social) => (
           <Link
             key={social._id}
