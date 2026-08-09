@@ -1,6 +1,7 @@
 "use client";
 
-import { Transition, FadeIn } from "../ui/transition";
+import { Transition } from "../ui/transition";
+import { SectionTitle } from "@/components/ui/section-title";
 import Timeline from "@/lib/interfaces/timeline";
 
 interface ExperienceProps {
@@ -13,24 +14,18 @@ const Experience = ({ timeline }: ExperienceProps) => {
     .sort((a, b) => a.sequence - b.sequence);
 
   return (
-    <section id="experience">
-      <div className="relative pb-2 pt-12 md:pt-16">
-        <span className="blob absolute top-[20%] left-0 w-1/3 h-5/6 blur-[100px] -z-10" />
-        <FadeIn>
-          <div className="flex flex-row flex-wrap text-start px-4 sm:px-6 md:px-20">
-            <div className="pr-2 text-2xl md:text-4xl font-extralight text-gray-500">
-              Work
-            </div>
-            <h1 className="text-2xl md:text-4xl text-white/70 mb-5 gradient-text">
-              Experience
-            </h1>
-          </div>
-        </FadeIn>
-        <div>
+    <section
+      id="experience"
+      className="relative w-full px-4 sm:px-6 md:px-20 py-12 md:py-16"
+    >
+      <span className="blob absolute top-[20%] left-0 w-1/3 h-5/6 blur-[100px] -z-10" />
+      <div className="relative w-full max-w-7xl mx-auto">
+        <SectionTitle light="Work" emphasis="Experience" />
+        <div className="mt-2">
           {experience.map((exp, index) => (
             <Transition
               key={exp._id}
-              className="py-4 px-4 sm:px-6 md:py-8 border-b border-white/10 hover:bg-white/5 md:px-12"
+              className="py-4 md:py-8 border-b border-white/10"
             >
               <div className="flex items-start justify-between gap-3 md:gap-8">
                 <span className="max-md:hidden pt-1">0{index + 1}</span>

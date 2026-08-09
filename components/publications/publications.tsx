@@ -127,6 +127,7 @@ export default function Publications() {
       id="publications"
       className="relative w-full px-4 sm:px-6 md:px-20 py-16 md:py-24"
     >
+      <div className="w-full max-w-7xl mx-auto">
       <SectionTitle light="Research" emphasis="Publications" />
 
       <FadeIn>
@@ -171,6 +172,7 @@ export default function Publications() {
           ))}
         </div>
       </FadeIn>
+      </div>
     </section>
   );
 }

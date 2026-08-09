@@ -64,7 +64,7 @@ const featuredApps: FeaturedApp[] = [
 
 const FeatureProjects = () => {
   return (
-    <div className="mt-12 md:mt-16 px-4 sm:px-6 md:px-20">
+    <div className="mt-12 md:mt-16">
       <SectionTitle light="Featured" emphasis="Applications" />
 
       <div className="mt-10 md:mt-14 space-y-16 md:space-y-24">
