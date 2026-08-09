@@ -1,7 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useState } from "react";
 import { Transition, FadeIn } from "../ui/transition";
 import Timeline from "@/lib/interfaces/timeline";
 
@@ -14,38 +12,17 @@ const Experience = ({ timeline }: ExperienceProps) => {
     .filter((line) => !line.forEducation && line.enabled === true)
     .sort((a, b) => a.sequence - b.sequence);
 
-  const [hover, setHover] = useState<number | null>(null);
-
   return (
     <section id="experience">
-      <div className="relative pb-2 pt-16">
-        <FadeIn>
-          <div className="flex flex-row text-start mx-10 md:mx-20">
-            <div className="pr-2 text-2xl md:text-4xl font-extralight text-gray-500">
-              Work-Life&apos;s
-            </div>
-            <h1 className="text-2xl md:text-4xl text-white/70 mb-5 gradient-text">
-              Balance
-            </h1>
-          </div>
-        </FadeIn>
-        <div className="text-gray-500 w-full md:w-2/3 flex flex-row text-start mx-10 md:mx-20 mb-20">
-          <FadeIn>
-            A skillful mobile developer with 4+ years of experience in cross-
-            platform app development with well-designed architectures and design
-            patterns. Experienced in web development and machine learning
-            skills. Passionate about crafting efficient and innovative
-            solutions.
-          </FadeIn>
-        </div>
+      <div className="relative pb-2 pt-12 md:pt-16">
         <span className="blob absolute top-[20%] left-0 w-1/3 h-5/6 blur-[100px] -z-10" />
         <FadeIn>
-          <div className="flex flex-row text-start mx-10 md:mx-20">
+          <div className="flex flex-row flex-wrap text-start px-4 sm:px-6 md:px-20">
             <div className="pr-2 text-2xl md:text-4xl font-extralight text-gray-500">
-              Experience
+              Work
             </div>
             <h1 className="text-2xl md:text-4xl text-white/70 mb-5 gradient-text">
-              History
+              Experience
             </h1>
           </div>
         </FadeIn>
@@ -53,43 +30,27 @@ const Experience = ({ timeline }: ExperienceProps) => {
           {experience.map((exp, index) => (
             <Transition
               key={exp._id}
-              className="py-4 px-10 md:py-8 border-b border-white/10 hover:bg-white/5 md:px-12"
-              onMouseEnter={() => setHover(index)}
-              onMouseLeave={() => setHover(null)}
+              className="py-4 px-4 sm:px-6 md:py-8 border-b border-white/10 hover:bg-white/5 md:px-12"
             >
-              <div className="flex items-center justify-between md:gap-8">
-                <span className="max-md:hidden">0{index + 1}</span>
-                <div className="md:text-5xl text-xl md:font-semibold flex-1 text-white/70">
+              <div className="flex items-start justify-between gap-3 md:gap-8">
+                <span className="max-md:hidden pt-1">0{index + 1}</span>
+                <div className="md:text-5xl text-lg sm:text-xl md:font-semibold flex-1 min-w-0 text-white/70 leading-snug">
                   {exp.jobTitle}
                 </div>
-                <div className="max-md:text-sm max-md:flex flex-col text-foreground/50">
+                <div className="shrink-0 text-right text-xs sm:text-sm max-md:flex flex-col text-foreground/50">
                   <span className="italic">{exp.startDate}</span>
                   <span className="max-md:hidden">{" - "}</span>
                   <span className="italic">{exp.endDate}</span>
                 </div>
               </div>
-              <div className="md:pl-12 py-2 text-foreground/50 max-md:text-sm flex items-center justify-between">
-                <span className="text-gray-500">{exp.company_name}</span>
-                <span className="text-gray-500">{exp.jobLocation}</span>
+              <div className="md:pl-12 py-2 text-foreground/50 text-xs sm:text-sm flex items-start justify-between gap-3">
+                <span className="text-gray-500 min-w-0 break-words">
+                  {exp.company_name}
+                </span>
+                <span className="text-gray-500 shrink-0 text-right">
+                  {exp.jobLocation}
+                </span>
               </div>
-              <motion.div
-                initial={{ height: 0 }}
-                animate={{ height: hover === index ? "auto" : 0 }}
-                transition={{ duration: 0.5 }}
-                className="overflow-hidden md:px-12"
-              >
-                <p className="text-foreground/60 py-2">{exp.summary}</p>
-                <ul className="list-disc list-inside">
-                  {exp.bulletPoints.map((point, index) => (
-                    <li
-                      key={index}
-                      className="text-foreground/80 max-md:text-sm text-gray-500"
-                    >
-                      {point}
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
             </Transition>
           ))}
         </div>

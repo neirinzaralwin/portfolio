@@ -22,7 +22,7 @@ const imageGridItems: ImageGridProps[] = [
     imageUrl:
       "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource126/v4/3e/1e/c3/3e1ec3c2-6a17-3c11-c68c-522a25a35e61/5a74b6f2-e4e7-4b70-a7e9-19755361dfec_Apple_iPhone_11_Pro_Max_Screenshot_1.png/460x0w.webp",
     title: "Wisdom Tree",
-    description: "Bookstore app",
+    description: "Digital bookstore and library app",
     appstore: "https://apps.apple.com/th/app/wisdom-tree-library/id6464262162",
     playstore:
       "https://play.google.com/store/apps/details?id=com.hapeyecoltd.wisdomtree",
@@ -30,84 +30,97 @@ const imageGridItems: ImageGridProps[] = [
   {
     imageUrl: "/assets/joyful_poster.png",
     title: "Joyful LMS",
-    description: "LMS application for kids",
+    description: "Learning platform built for children",
     appstore: "https://apps.apple.com/th/app/joyfullms/id6480043967",
   },
   {
     imageUrl: "/assets/gogo_travel_poster.png",
     title: "Go Go Travel",
-    description: "Travel app for Myanmar",
+    description: "Travel planning and discovery for Myanmar",
     appstore: "https://apps.apple.com/th/app/go-go-travel/id6473775786",
   },
 ];
 
-const renderComponent = (
-  item: ImageGridProps,
-  index: number,
-  blackAndWhite: boolean
-) => (
-  <div className="relative group cursor-pointer transition-transform duration-300 ease-out hover:scale-105">
-    <div className="overflow-hidden rounded-lg shadow-lg relative aspect-square">
+function StoreLinks({ item }: { item: ImageGridProps }) {
+  return (
+    <div className="flex gap-3">
+      {item.appstore && (
+        <Link
+          href={item.appstore}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-white/70 hover:text-white transition-colors"
+          onClick={(e) => e.stopPropagation()}
+          aria-label={`${item.title} on App Store`}
+        >
+          <SiAppstore size={20} />
+        </Link>
+      )}
+      {item.playstore && (
+        <Link
+          href={item.playstore}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-white/70 hover:text-white transition-colors"
+          onClick={(e) => e.stopPropagation()}
+          aria-label={`${item.title} on Google Play`}
+        >
+          <SiGoogleplay size={20} />
+        </Link>
+      )}
+    </div>
+  );
+}
+
+const ProjectCard = ({
+  item,
+  blackAndWhite,
+}: {
+  item: ImageGridProps;
+  blackAndWhite: boolean;
+}) => (
+  <article className="group">
+    <div className="overflow-hidden rounded-xl relative aspect-square bg-white/5">
       <Image
         src={item.imageUrl}
         alt={item.title}
         fill
-        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-        className={`object-cover rounded-lg transition-all duration-500 ease-out ${
+        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+        className={`object-cover transition-transform duration-500 ease-out md:group-hover:scale-105 ${
           blackAndWhite ? "grayscale" : ""
         }`}
       />
 
-      {/* Glassy hover overlay with title and links */}
-      <div className="absolute inset-0 rounded-lg bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 backdrop-blur-sm transition-all duration-500 ease-out flex flex-col justify-center items-center text-white p-4 will-change-transform">
-        <div className="text-center bg-black/40 backdrop-blur-md p-6 rounded-2xl border border-white/20 shadow-2xl transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 ease-out">
-          <div className="text-xl font-bold mb-2 text-white drop-shadow-lg">
-            {item.title}
-          </div>
-          <div className="text-gray-200 text-sm mb-4 drop-shadow-md">
-            {item.description}
-          </div>
-          <div className="flex justify-center gap-3">
-            {item.appstore && (
-              <Link
-                href={item.appstore}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white p-2 rounded transition-all duration-300 ease-out border border-white/30 hover:border-white/50 hover:scale-105"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <SiAppstore size={20} />
-              </Link>
-            )}
-            {item.playstore && (
-              <Link
-                href={item.playstore}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white p-2 rounded transition-all duration-300 ease-out border border-white/30 hover:border-white/50 hover:scale-105"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <SiGoogleplay size={20} />
-              </Link>
-            )}
-          </div>
+      {/* Desktop hover overlay only */}
+      <div className="pointer-events-none absolute inset-0 hidden md:flex items-end bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-5">
+        <div className="pointer-events-auto w-full space-y-2">
+          <h3 className="text-lg font-semibold text-white">{item.title}</h3>
+          <p className="text-sm text-white/70">{item.description}</p>
+          <StoreLinks item={item} />
         </div>
       </div>
     </div>
-  </div>
+
+    {/* Mobile / tablet: text below image */}
+    <div className="mt-4 md:hidden space-y-2">
+      <h3 className="text-lg font-semibold text-white/80">{item.title}</h3>
+      <p className="text-sm text-gray-500 leading-relaxed">{item.description}</p>
+      <StoreLinks item={item} />
+    </div>
+  </article>
 );
 
 export function BlurFadeImages({ blackAndWhite = false }: BlurFadeImagesProps) {
   return (
-    <div className="container py-8 mx-auto">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mx-auto">
+    <div className="w-full py-6 md:py-8 mx-auto">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-6 md:gap-8 mx-auto">
         {imageGridItems.map((item, index) => (
           <FadeIn
-            key={index}
+            key={item.title}
             transition={{ duration: 0.5, delay: index * 0.1 }}
             viewport={{ once: true }}
           >
-            {renderComponent(item, index, blackAndWhite)}
+            <ProjectCard item={item} blackAndWhite={blackAndWhite} />
           </FadeIn>
         ))}
       </div>

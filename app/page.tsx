@@ -2,86 +2,93 @@ import Navbar from "@/components/navbar/default-navbar";
 import Hero from "@/components/hero/hero";
 import Portfolio from "@/components/portfolio/portfolio";
 import Experience from "@/components/experience/experience";
+import WorkExperience from "@/components/experience/work-experience";
 import Timeline from "@/lib/interfaces/timeline";
 import { ContactUs } from "@/components/contact-us/contact-us";
+import { StatsUI } from "@/components/stats/stats-ui";
+import TechStackUI from "@/components/techstack/techstack-ui";
+import { AboutMe } from "@/components/about/about-me";
+import Publications from "@/components/publications/publications";
+import VintShowcase from "@/components/vint/vint-showcase";
 
 const expList: Timeline[] = [
   {
     company_name: "Flying Rocket Co., Ltd.",
-    summary: "Summary",
+    summary:
+      "Built consumer marketplace and hospitality products end-to-end — auctions, payments, and real-time hotel operations.",
     sequence: 1,
-    startDate: "2024 December",
-    endDate: "2026 Feb",
-    jobTitle: "Sr. Mobile & Full Stack Developer",
-    jobLocation: "Thailand",
+    startDate: "Dec 2024",
+    endDate: "Feb 2026",
+    jobTitle: "Senior Mobile & Full-Stack Developer",
+    jobLocation: "Bangkok, Thailand",
     bulletPoints: [
-      "Layfist Thrift Marketplace: Developed the auction and product browsing experience for second-hand ladies accessories and items.",
-      "Clean Wardrobe Service: Built the end-to-end workflow for cleaning/refreshing ladies clothing, including status tracking and updates.",
-      "Boutique Shop Module: Implemented boutique storefront, inventory handling, and a smooth checkout flow.",
-      "Hotel PMS (Check-in/Check-out): Created real-time customer check-in/check-out flows with up-to-date room/guest status.",
-      "Channel Manager API Sync: Integrated channel manager APIs to keep availability and reservations consistent across channels.",
-      "SCB Thai QR Payments: Implemented SCB Bank Thai QR payments with payment confirmation and real-time reconciliation.",
+      "Lady First marketplace: shipped auction and product browsing for pre-loved fashion and accessories.",
+      "Clean Wardrobe service: built end-to-end clothing care workflows with status tracking and updates.",
+      "Boutique shop module: implemented storefront, inventory, and checkout flows.",
+      "Hotel PMS: delivered real-time check-in/check-out with live room and guest status.",
+      "Channel manager sync: integrated APIs to keep availability and reservations consistent across channels.",
+      "SCB Thai QR payments: implemented payment confirmation and real-time reconciliation.",
     ],
     forEducation: false,
     enabled: true,
     _id: "1",
   },
   {
-    company_name: "Gold Silver Central",
-    summary: "Summary",
-    sequence: 1,
+    company_name: "GoldSilver Central",
+    summary:
+      "Led mobile and backend work on a Singapore bullion trading platform — wallets, exchanges, and market insights.",
+    sequence: 2,
     startDate: "2022",
     endDate: "2024",
-    jobTitle: "Sr. Mobile Developer / Mid Backend Developer",
+    jobTitle: "Senior Mobile & Backend Developer",
     jobLocation: "Singapore",
     bulletPoints: [
-      "Gold-Saving Wallet Development: Led the design and implementation of a blockchain-based gold-saving wallet, enhancing secure asset management.",
-      "Currency Exchange Facilitation: Developed features for seamless currency exchange between various tokens, improving user experience and transaction efficiency.",
-      "Multi-User Wallet Management: Implemented functionalities supporting multiple user wallets, allowing for diverse user profiles and transaction histories.",
-      "Stock Visualization Integration: Integrated advanced stock visualization charts to provide users with real-time market insights and analytics.",
-      "Chat Functionality: Developed a chat feature for enhanced user communication and support within the application.",
-      "TensorFlow Implementation: Utilized TensorFlow for image classification tasks, demonstrating expertise in machine learning and AI technologies.",
+      "Designed and shipped a blockchain-based gold-saving wallet for secure asset management.",
+      "Built currency exchange flows between tokens for faster, clearer transactions.",
+      "Implemented multi-wallet support with distinct profiles and transaction histories.",
+      "Integrated real-time stock visualization charts for market insights.",
+      "Added in-app chat for user communication and support.",
+      "Applied TensorFlow for image classification within the product.",
     ],
     forEducation: false,
     enabled: true,
     _id: "2",
   },
-
   {
     company_name: "App.com.mm",
-    summary: "Summary",
-    sequence: 1,
+    summary:
+      "Shipped consumer apps across e-commerce, education, food, and travel for the Myanmar market.",
+    sequence: 3,
     startDate: "2021",
     endDate: "2022",
     jobTitle: "Senior Mobile Developer",
     jobLocation: "Myanmar",
     bulletPoints: [
-      "E-Commerce Platform Development: Led the creation of a user-friendly e-commerce platform, enhancing online shopping experiences for customers.",
-      "Customizable PC Building System: Designed an interactive system for users to build and customize PCs, streamlining the purchasing process.",
-      "Dhamma Talks Application: Developed an application dedicated to sharing Dhamma talks, fostering community engagement and learning.",
-      "Local Food Product Store Applications: Created applications to promote and sell local food products, supporting small businesses and local agriculture.",
-      "Travel App Development: Spearheaded the development of a comprehensive travel app, offering users personalized travel itineraries and recommendations.",
-      "Learning Management System: Designed and implemented a learning management system to facilitate online education and training.",
-      "Team Growth Leadership: Contributed to scaling the team from 5 to 100 employees within 2 years, enhancing operational capabilities and fostering a collaborative work environment.",
+      "Led development of an e-commerce platform focused on clear browsing and checkout.",
+      "Designed an interactive PC builder to streamline custom hardware purchases.",
+      "Built a Dhamma talks app for community listening and learning.",
+      "Created local food store apps to help small vendors sell online.",
+      "Developed a travel app with itineraries and recommendations for Myanmar.",
+      "Designed and implemented a learning management system for online education.",
+      "Helped scale the engineering team from 5 to 100 people over two years.",
     ],
     forEducation: false,
     enabled: true,
     _id: "3",
   },
-
   {
-    company_name: "Tech plus solution",
-    summary: "Summary",
-    sequence: 1,
+    company_name: "Tech Plus Solution",
+    summary:
+      "Built early-career mobile products for retail, POS, and consumer apps.",
+    sequence: 4,
     startDate: "2020",
     endDate: "2021",
     jobTitle: "Junior Mobile Developer",
     jobLocation: "Myanmar",
     bulletPoints: [
-      "Lightweight POS System: Led the creation of a lightweight mobile-based Point of Sale system, providing efficiency and flexibility for businesses.",
-      "Fortune App Renovation: Oversaw the renovation of a Fortune app, transitioning it to native platforms for enhanced performance.",
-      "E-Commerce and Retail App: Crafted an intuitive e-commerce and retail app, devising a sophisticated product stock management algorithm based on color for seamless inventory control.",
-      "Innovative Solutions: Showcased the ability to deliver innovative solutions tailored to diverse user needs through various projects.",
+      "Built a lightweight mobile POS system for small-business checkout.",
+      "Migrated a Fortune app to native platforms for better performance.",
+      "Delivered an e-commerce and retail app with color-based stock management.",
     ],
     forEducation: false,
     enabled: true,
@@ -94,28 +101,33 @@ export default function Home() {
     <div className="flex flex-col">
       <Navbar />
       <Hero />
+      <StatsUI />
+      <TechStackUI />
+      <AboutMe />
       <Experience timeline={expList} />
+      <WorkExperience />
+      <Publications />
+      <VintShowcase />
       <Portfolio />
-      {/* <ColleageReviews /> */}
       <ContactUs
         email="zaralwinneirin@gmail.com"
         social_handle={[
           {
             _id: "1",
-            platform: "linkedin",
+            platform: "LinkedIn",
             url: "https://www.linkedin.com/in/zar-alwin-neirin-6b1b4b1b7/",
             imageUrl:
               "https://image.similarpng.com/very-thumbnail/2020/07/Linkedin-logo-on-transparent-Background-PNG-.png",
           },
           {
             _id: "2",
-            platform: "github",
+            platform: "GitHub",
             url: "https://github.com/neirinzaralwin",
             imageUrl: "",
           },
         ]}
         about={{
-          phoneNumber: "+66945959233",
+          phoneNumber: "+66 94 595 9233",
           address: "Bangkok, Thailand",
         }}
       />

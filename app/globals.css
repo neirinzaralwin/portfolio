@@ -21,8 +21,8 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: var(--font_sfpro);
-  overflow-x: hidden; /* Prevent horizontal scrolling */
+  font-family: var(--font-sfpro);
+  overflow-x: hidden;
 }
 
 @layer utilities {
@@ -35,8 +35,13 @@ body {
   }
 
   .gradient-text {
-    background: linear-gradient(to bottom, #ffffff, #808080);
+    background: linear-gradient(
+      to bottom,
+      var(--gradient-from, #ffffff),
+      var(--gradient-to, #808080)
+    );
     -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     background-clip: text;
     color: transparent;
   }

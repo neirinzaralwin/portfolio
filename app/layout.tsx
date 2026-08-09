@@ -13,8 +13,9 @@ const sfPro = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Portfolio",
-  description: "This is the Nei Rin Zara Lwin's portfolio.",
+  title: "Nei Rin Zara Lwin — AI Native Software Engineer",
+  description:
+    "Portfolio of Nei Rin Zara Lwin — AI Native Software Engineer building mobile and web products across marketplaces, fintech, and hospitality.",
 };
 
 export default function RootLayout({

@@ -1,11 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { FadeIn, Transition } from "../ui/transition";
-import { ReactNode } from "react";
-import { cn } from "@/utils/cn";
+import { SectionTitle } from "../ui/section-title";
 import Link from "next/link";
-import emailForm from "./email-form";
+import EmailForm from "./email-form";
 
 interface SocialHandle {
   _id: string;
@@ -24,70 +22,60 @@ export interface ContactProps {
   social_handle: SocialHandle[];
   about: About;
 }
+
 export const ContactUs = ({ email, social_handle, about }: ContactProps) => {
   return (
-    <section id="contact">
-      <motion.section className="relative">
-        <span className="blob size-1/2 absolute top-20 right-0 blur-[100px]" />
-        <div className="p-4 md:p-8 md:px-16">
-          <FadeIn>
-            <div className="flex flex-row text-start mt-16">
-              <div className="pr-2 text-2xl md:text-4xl font-extralight text-gray-500">
-                If you interested
-              </div>
-              <h1 className="text-2xl md:text-4xl text-white/70 mb-5 gradient-text">
-                Reach to me
-              </h1>
-            </div>
-          </FadeIn>
-          {emailForm({ email, social_handle, about })}
-        </div>
-        <footer className="flex items-center justify-between md:px-8 px-2 py-4 text-sm">
-          <Transition>
-            <div>&copy; {new Date().getFullYear()} Portfolio</div>
-          </Transition>
-          <Transition>
-            <p>
-              developed by @
-              <Link
-                href={"https://twitter.com/tehseen_type"}
-                className="hover:underline"
-              >
-                neirinzaralwin
-              </Link>
-            </p>
-          </Transition>
-        </footer>
-      </motion.section>
-    </section>
-  );
-};
-
-interface BackgroundScaleProps {
-  children: ReactNode;
-  className?: string;
-}
-
-export const BackgroundScale = ({
-  children,
-  className,
-}: BackgroundScaleProps) => {
-  return (
-    <motion.div
-      whileHover="whileHover"
-      whileFocus="whileHover"
-      whileTap="whileHover"
-      initial="initial"
-      className={cn("relative p-1 group", className)}
-    >
-      <motion.span
-        variants={{
-          initial: { scaleY: 0 },
-          whileHover: { scaleY: 1 },
+    <section id="contact" className="relative overflow-hidden pb-28 md:pb-0">
+      <div
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-[50%] opacity-40"
+        style={{
+          background:
+            "radial-gradient(ellipse 80% 60% at 50% 100%, #668eab33 0%, transparent 70%)",
         }}
-        className="absolute top-0 left-0 h-full w-full bg-primary -z-10 group-hover:text-black"
       />
-      {children}
-    </motion.div>
+
+      <div className="relative mx-auto flex max-w-2xl flex-col items-center px-4 sm:px-6 py-16 md:px-8 md:py-28">
+        <div className="w-full text-center">
+          <SectionTitle
+            light="Let's"
+            emphasis="Connect"
+            className="justify-center"
+          />
+          <FadeIn>
+            <p className="mx-auto mt-2 max-w-lg text-sm text-gray-500 md:text-base px-1">
+              Open to collaborations, product builds, and interesting
+              opportunities. Send a note and I&apos;ll get back to you.
+            </p>
+          </FadeIn>
+        </div>
+
+        <div className="mt-8 w-full md:mt-14">
+          <EmailForm
+            email={email}
+            social_handle={social_handle}
+            about={about}
+          />
+        </div>
+      </div>
+
+      <footer className="relative flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between border-t border-white/10 px-4 py-4 text-xs sm:text-sm text-gray-500 md:px-8">
+        <Transition>
+          <div>&copy; {new Date().getFullYear()} Nei Rin Zara Lwin</div>
+        </Transition>
+        <Transition>
+          <p>
+            Built by{" "}
+            <Link
+              href="https://github.com/neirinzaralwin"
+              className="text-white/70 transition-colors hover:text-white"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              @neirinzaralwin
+            </Link>
+          </p>
+        </Transition>
+      </footer>
+    </section>
   );
 };
