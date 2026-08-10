@@ -43,17 +43,16 @@ const imageGridItems: ImageGridProps[] = [
 
 function StoreLinks({ item }: { item: ImageGridProps }) {
   return (
-    <div className="flex gap-3">
+    <div className="flex gap-3 mt-4">
       {item.appstore && (
         <Link
           href={item.appstore}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-white/70 hover:text-white transition-colors"
-          onClick={(e) => e.stopPropagation()}
+          className="text-white/50 hover:text-white transition-colors"
           aria-label={`${item.title} on App Store`}
         >
-          <SiAppstore size={20} />
+          <SiAppstore size={18} />
         </Link>
       )}
       {item.playstore && (
@@ -61,67 +60,130 @@ function StoreLinks({ item }: { item: ImageGridProps }) {
           href={item.playstore}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-white/70 hover:text-white transition-colors"
-          onClick={(e) => e.stopPropagation()}
+          className="text-white/50 hover:text-white transition-colors"
           aria-label={`${item.title} on Google Play`}
         >
-          <SiGoogleplay size={20} />
+          <SiGoogleplay size={18} />
         </Link>
       )}
     </div>
   );
 }
 
-const ProjectCard = ({
+function ProjectMeta({
   item,
+  index,
+}: {
+  item: ImageGridProps;
+  index: number;
+}) {
+  return (
+    <FadeIn transition={{ duration: 0.35, delay: index * 0.04 }}>
+      <article className="flex flex-col max-w-[16rem]">
+        <span className="text-xs text-gray-500 tabular-nums mb-3">
+          {String(index + 1).padStart(2, "0")}
+        </span>
+        <h3 className="text-sm sm:text-base font-semibold uppercase tracking-wide text-white/85">
+          {item.title}
+        </h3>
+        <p className="mt-2 text-sm text-gray-500 leading-relaxed">
+          {item.description}
+        </p>
+        <StoreLinks item={item} />
+      </article>
+    </FadeIn>
+  );
+}
+
+function ProjectImage({
+  item,
+  index,
   blackAndWhite,
 }: {
   item: ImageGridProps;
+  index: number;
   blackAndWhite: boolean;
-}) => (
-  <article className="group">
-    <div className="overflow-hidden rounded-xl relative aspect-square bg-white/5">
+}) {
+  const href = item.appstore ?? item.playstore;
+
+  const image = (
+    <div className="relative aspect-square w-full overflow-hidden bg-white/5">
       <Image
         src={item.imageUrl}
         alt={item.title}
         fill
-        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-        className={`object-cover transition-transform duration-500 ease-out md:group-hover:scale-105 ${
+        sizes="(max-width: 768px) 70vw, 22vw"
+        className={`object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03] ${
           blackAndWhite ? "grayscale" : ""
         }`}
       />
-
-      {/* Desktop hover overlay only */}
-      <div className="pointer-events-none absolute inset-0 hidden md:flex items-end bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-5">
-        <div className="pointer-events-auto w-full space-y-2">
-          <h3 className="text-lg font-semibold text-white">{item.title}</h3>
-          <p className="text-sm text-white/70">{item.description}</p>
-          <StoreLinks item={item} />
-        </div>
-      </div>
     </div>
+  );
 
-    {/* Mobile / tablet: text below image */}
-    <div className="mt-4 md:hidden space-y-2">
-      <h3 className="text-lg font-semibold text-white/80">{item.title}</h3>
-      <p className="text-sm text-gray-500 leading-relaxed">{item.description}</p>
-      <StoreLinks item={item} />
-    </div>
-  </article>
-);
+  return (
+    <FadeIn
+      transition={{ duration: 0.35, delay: 0.08 + index * 0.05 }}
+      className="min-w-[70%] snap-center sm:min-w-0 sm:w-full"
+    >
+      {href ? (
+        <Link
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group block"
+          aria-label={`Open ${item.title}`}
+        >
+          {image}
+        </Link>
+      ) : (
+        <div className="group">{image}</div>
+      )}
+    </FadeIn>
+  );
+}
 
 export function BlurFadeImages({ blackAndWhite = false }: BlurFadeImagesProps) {
   return (
-    <div className="w-full py-6 md:py-8 mx-auto">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-6 md:gap-8 mx-auto">
+    <div className="w-full py-4 md:py-8 mx-auto">
+      {/* Top: numbered project blurbs — broken grid on desktop */}
+      <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-[minmax(0,1fr)_minmax(4rem,1.5fr)_minmax(0,1fr)_minmax(0,1fr)] lg:gap-x-8">
         {imageGridItems.map((item, index) => (
-          <FadeIn
+          <div
             key={item.title}
-            transition={{ duration: 0.35, delay: index * 0.05 }}
+            className={
+              index === 0
+                ? "lg:col-start-1"
+                : index === 1
+                  ? "lg:col-start-3"
+                  : "lg:col-start-4"
+            }
           >
-            <ProjectCard item={item} blackAndWhite={blackAndWhite} />
-          </FadeIn>
+            <ProjectMeta item={item} index={index} />
+          </div>
         ))}
+      </div>
+
+      {/* Bottom: editorial headline + tight image triptych */}
+      <div className="mt-16 md:mt-24 lg:mt-28 grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-8 lg:items-start">
+        <FadeIn className="lg:col-span-4">
+          <h3 className="max-w-sm text-xl sm:text-2xl md:text-3xl font-medium leading-[1.2] tracking-tight text-white/80 text-balance">
+            Apps people open every day— for learning, travel, and reading.
+          </h3>
+        </FadeIn>
+
+        <div className="lg:col-span-8">
+          {/* Mobile: horizontal snap carousel; desktop: tight 3-up row */}
+          <div className="flex gap-3 overflow-x-auto snap-x snap-mandatory pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 sm:overflow-visible sm:grid sm:grid-cols-3 sm:gap-3 md:gap-4 scrollbar-none">
+            {imageGridItems.map((item, index) => (
+              <ProjectImage
+                key={item.title}
+                item={item}
+                index={index}
+                blackAndWhite={blackAndWhite}
+              />
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
