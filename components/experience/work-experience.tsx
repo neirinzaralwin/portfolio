@@ -57,6 +57,7 @@ const timelineItems = [
 export default function WorkExperience() {
   return (
     <div
+      id="experience"
       className={`${styles.page_wrapper} w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-20 py-12 md:py-20`}
     >
       <SectionTitle light="Career" emphasis="Timeline" />
