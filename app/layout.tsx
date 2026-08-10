@@ -24,7 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={sfPro.variable}>
+    <html lang="en" className={`dark ${sfPro.variable}`}>
       <body>
         <Providers>{children}</Providers>
       </body>

@@ -117,8 +117,7 @@ export function BlurFadeImages({ blackAndWhite = false }: BlurFadeImagesProps) {
         {imageGridItems.map((item, index) => (
           <FadeIn
             key={item.title}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
-            viewport={{ once: true }}
+            transition={{ duration: 0.35, delay: index * 0.05 }}
           >
             <ProjectCard item={item} blackAndWhite={blackAndWhite} />
           </FadeIn>
