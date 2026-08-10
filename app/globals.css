@@ -3,19 +3,11 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: dark;
+  --background: #0a0a0a;
+  --foreground: #ededed;
   --font-sfpro: "SF Pro", sans-serif;
   --font-sfpro-italic: "SF Pro Italic", sans-serif;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-    --font-sfpro: "SF Pro", sans-serif;
-    --font-sfpro-italic: "SF Pro Italic", sans-serif;
-  }
 }
 
 body {
