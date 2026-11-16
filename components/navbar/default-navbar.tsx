@@ -1,9 +1,10 @@
 "use client";
 
-import React from "react";
-import { ArrowRight } from "lucide-react";
-import { TextReveal } from "@/components/ui/typography";
-import { Transition } from "@/components/ui/transition";
+import React, { useRef } from "react";
+import { HoverSwap } from "@/components/motion/hover-swap";
+import { MainButton } from "@/components/motion/main-button";
+import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/gsap";
+import { onIntroDone } from "@/lib/intro";
 import { scrollToSection } from "../smooth-scroll";
 
 const navLinks = [
@@ -14,93 +15,128 @@ const navLinks = [
 ];
 
 const Navbar = () => {
-  const handleLinkClick = (id: string) => {
+  const root = useRef<HTMLDivElement>(null);
+
+  const go = (id: string) => (e: React.MouseEvent) => {
+    e.preventDefault();
     scrollToSection(id);
   };
 
-  return (
-    <>
-      <Transition viewport={{ once: true }}>
-        {/* Desktop navbar - top */}
-        <div className="fixed top-0 w-full z-40">
-          <div className="flex justify-center text-white/70 pt-6">
-            <div className="hidden md:inline-flex items-center justify-center px-8 py-3 rounded-full bg-black/50 backdrop-blur-md">
-              <ul className="flex flex-row space-x-8 items-center">
-                {navLinks.map((link, index) => (
-                  <li key={index}>
-                    <a
-                      href={link.path}
-                      className="hover:text-white transition-colors duration-300"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        handleLinkClick(link.path);
-                      }}
-                    >
-                      {link.title}
-                    </a>
-                  </li>
-                ))}
-                <li className="group">
-                  <a
-                    href="#contact"
-                    className="px-4 py-2 rounded-full border border-white/50 flex items-center gap-4 group"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleLinkClick("contact");
-                    }}
-                  >
-                    <TextReveal>Let&apos;s talk</TextReveal>
-                    <ArrowRight
-                      size={20}
-                      className="group-hover:rotate-90 transition-transform"
-                    />
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
+  useGSAP(
+    (_, contextSafe) => {
+      if (prefersReducedMotion()) return;
 
-        {/* Mobile navbar - bottom */}
-        <div className="fixed bottom-0 inset-x-0 z-40 md:hidden pb-[env(safe-area-inset-bottom)]">
-          <div className="flex justify-center text-white/70 pb-4 px-3">
-            <div className="inline-flex max-w-full items-center justify-center px-2.5 py-2 rounded-full bg-black/60 backdrop-blur-md border border-white/10 overflow-x-auto">
-              <ul className="flex flex-row items-center gap-2.5 sm:gap-3">
-                {navLinks.map((link, index) => (
-                  <li key={index}>
-                    <a
-                      href={link.path}
-                      className="hover:text-white transition-colors duration-300 text-[11px] sm:text-sm whitespace-nowrap"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        handleLinkClick(link.path);
-                      }}
-                    >
-                      {link.title}
-                    </a>
-                  </li>
-                ))}
-                <li>
+      gsap.set("[data-nav]", { yPercent: -160, autoAlpha: 0 });
+      gsap.set("[data-nav-mobile]", { yPercent: 160, autoAlpha: 0 });
+
+      const off = onIntroDone(
+        contextSafe!(() => {
+          gsap.to("[data-nav], [data-nav-mobile]", {
+            yPercent: 0,
+            autoAlpha: 1,
+            duration: 1.2,
+            delay: 0.5,
+            ease: "power4.out",
+          });
+        })
+      );
+
+      // Desktop pill tucks away while reading down, returns on scroll up.
+      const hide = gsap.quickTo("[data-nav-shell]", "yPercent", {
+        duration: 0.7,
+        ease: "power3.out",
+      });
+      ScrollTrigger.create({
+        start: 120,
+        end: "max",
+        onUpdate: (self) => hide(self.direction === 1 ? -180 : 0),
+        onLeaveBack: () => hide(0),
+      });
+
+      return off;
+    },
+    { scope: root }
+  );
+
+  return (
+    <div ref={root}>
+      {/* Desktop navbar - top */}
+      <div
+        data-nav-shell
+        className="pointer-events-none fixed top-0 z-40 hidden w-full justify-center pt-5 md:flex"
+      >
+        <nav
+          data-nav
+          aria-label="Primary"
+          className="pointer-events-auto inline-flex items-center gap-1 rounded-full border border-white/[0.08] bg-white/[0.06] p-1.5 pl-2 backdrop-blur-xl"
+        >
+          <a
+            href="#about"
+            onClick={go("about")}
+            aria-label="Back to top"
+            className="mr-2 grid h-9 w-9 place-items-center rounded-full bg-white/10 text-sm font-semibold tracking-tight text-white transition-transform duration-700 ease-[cubic-bezier(.22,1,.36,1)] hover:rotate-[360deg]"
+          >
+            nr
+          </a>
+          <ul className="flex items-center">
+            {navLinks.map((link) => (
+              <li key={link.path}>
+                <a
+                  href={`#${link.path}`}
+                  onClick={go(link.path)}
+                  data-hover-trigger
+                  className="block rounded-full px-4 py-2 text-sm text-white/70 transition-colors duration-500 hover:bg-white/[0.07] hover:text-white"
+                >
+                  <HoverSwap>{link.title}</HoverSwap>
+                </a>
+              </li>
+            ))}
+          </ul>
+          <MainButton
+            href="#contact"
+            onClick={go("contact")}
+            size="sm"
+            className="ml-2"
+          >
+            Let&apos;s talk
+          </MainButton>
+        </nav>
+      </div>
+
+      {/* Mobile navbar - bottom */}
+      <div className="fixed inset-x-0 bottom-0 z-40 pb-[env(safe-area-inset-bottom)] md:hidden">
+        <div className="flex justify-center px-3 pb-4">
+          <nav
+            data-nav-mobile
+            aria-label="Primary"
+            className="inline-flex max-w-full items-center overflow-x-auto rounded-full border border-white/10 bg-black/60 px-2.5 py-2 text-white/70 backdrop-blur-md scrollbar-none"
+          >
+            <ul className="flex flex-row items-center gap-2.5 sm:gap-3">
+              {navLinks.map((link) => (
+                <li key={link.path}>
                   <a
-                    href="#contact"
-                    className="px-2 py-1 rounded-full border border-white/40 flex items-center gap-1"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleLinkClick("contact");
-                    }}
+                    href={`#${link.path}`}
+                    onClick={go(link.path)}
+                    className="whitespace-nowrap px-1 text-[11px] transition-colors duration-300 hover:text-white sm:text-sm"
                   >
-                    <span className="text-[11px] sm:text-sm whitespace-nowrap">
-                      Talk
-                    </span>
-                    <ArrowRight size={12} />
+                    {link.title}
                   </a>
                 </li>
-              </ul>
-            </div>
-          </div>
+              ))}
+              <li>
+                <a
+                  href="#contact"
+                  onClick={go("contact")}
+                  className="rounded-full bg-white px-3 py-1.5 text-[11px] font-medium whitespace-nowrap text-black sm:text-sm"
+                >
+                  Talk
+                </a>
+              </li>
+            </ul>
+          </nav>
         </div>
-      </Transition>
-    </>
+      </div>
+    </div>
   );
 };
 

@@ -1,74 +1,80 @@
 "use client";
 
-import { useCursorVariants } from "@/utils/context";
-import { useMotionValue, useSpring, motion, Variants } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import { gsap, hasFinePointer, prefersReducedMotion } from "@/lib/gsap";
 
+/**
+ * Trailing cursor accent. Reads intent from the DOM:
+ *   data-cursor="view"  → grows into a labelled disc (data-cursor-label)
+ *   data-cursor="hide"  → gets out of the way (buttons animate themselves)
+ *   a, button           → opens into a ring
+ */
 export const Cursor = () => {
-  const { variant } = useCursorVariants();
-
-  const cursorX = useMotionValue(-100);
-  const cursorY = useMotionValue(-100);
-
-  const springConfig = { damping: 25, stiffness: 100 };
-  const cursorXSpring = useSpring(cursorX, springConfig);
-  const cursorYSpring = useSpring(cursorY, springConfig);
+  const dot = useRef<HTMLDivElement>(null);
+  const label = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
-    const moveCursor = (e: MouseEvent) => {
-      requestAnimationFrame(() => {
-        // Update position only on animation frame
-        cursorX.set(e.clientX - (variant === "PROJECT" ? 32 : 8)); // Adjust offset based on variant
-        cursorY.set(e.clientY - (variant === "PROJECT" ? 32 : 8));
+    const el = dot.current;
+    if (!el || !hasFinePointer() || prefersReducedMotion()) return;
+
+    gsap.set(el, { xPercent: -50, yPercent: -50, autoAlpha: 0 });
+    const xTo = gsap.quickTo(el, "x", { duration: 0.45, ease: "power3" });
+    const yTo = gsap.quickTo(el, "y", { duration: 0.45, ease: "power3" });
+
+    let shown = false;
+    let mode = "";
+
+    const setMode = (next: string, text = "") => {
+      if (next === mode) return;
+      mode = next;
+      el.dataset.mode = next;
+      if (label.current) label.current.textContent = text;
+      const size = next === "view" ? 92 : next === "link" ? 44 : 12;
+      gsap.to(el, {
+        width: size,
+        height: size,
+        autoAlpha: next === "hide" ? 0 : 1,
+        duration: 0.5,
+        ease: "power3.out",
+        overwrite: "auto",
       });
     };
 
-    window.addEventListener("mousemove", moveCursor);
-
-    return () => {
-      window.removeEventListener("mousemove", moveCursor);
+    const move = (e: MouseEvent) => {
+      xTo(e.clientX);
+      yTo(e.clientY);
+      if (!shown) {
+        shown = true;
+        gsap.set(el, { x: e.clientX, y: e.clientY });
+        gsap.to(el, { autoAlpha: 1, duration: 0.3 });
+      }
+      const target = e.target as HTMLElement | null;
+      const marked = target?.closest<HTMLElement>("[data-cursor]");
+      if (marked) {
+        setMode(marked.dataset.cursor ?? "", marked.dataset.cursorLabel ?? "View");
+      } else if (target?.closest("a, button")) {
+        setMode("link");
+      } else {
+        setMode("");
+      }
     };
-  }, [variant, cursorX, cursorY]);
 
-  const variants: Variants = {
-    DEFAULT: {
-      width: 16,
-      height: 16,
-      backgroundColor: "transparent",
-      border: "1px solid rgba(255, 255, 255, 0.7)",
-    },
-    PROJECT: {
-      height: 100,
-      width: 100,
-      mixBlendMode: "unset",
-    },
-    BUTTON: {
-      opacity: 0,
-    },
-    TEXT: {
-      height: 100,
-      width: 100,
-      backgroundColor: "transparent",
-      border: "1px solid rgba(255, 255, 255, 0.7)",
-    },
-  };
+    const leave = () => {
+      shown = false;
+      gsap.to(el, { autoAlpha: 0, duration: 0.3 });
+    };
+
+    window.addEventListener("mousemove", move, { passive: true });
+    document.documentElement.addEventListener("mouseleave", leave);
+    return () => {
+      window.removeEventListener("mousemove", move);
+      document.documentElement.removeEventListener("mouseleave", leave);
+    };
+  }, []);
 
   return (
-    <motion.div
-      className="fixed top-0 left-0 bg-white mix-blend-difference z-50 rounded-full pointer-events-none grid place-items-center max-md:hidden"
-      variants={variants}
-      animate={variant}
-      style={{
-        translateX: cursorXSpring,
-        translateY: cursorYSpring,
-      }}
-    >
-      {variant === "PROJECT" && (
-        <div className="text-black">
-          <ArrowUpRight size={28} />
-        </div>
-      )}
-    </motion.div>
+    <div ref={dot} className="site-cursor" aria-hidden>
+      <span ref={label} className="site-cursor__label" />
+    </div>
   );
 };

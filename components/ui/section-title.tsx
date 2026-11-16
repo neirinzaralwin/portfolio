@@ -1,6 +1,6 @@
 "use client";
 
-import { FadeIn } from "@/components/ui/transition";
+import { SplitReveal } from "@/components/motion/split-reveal";
 import { cn } from "@/utils/cn";
 
 interface SectionTitleProps {
@@ -11,15 +11,16 @@ interface SectionTitleProps {
 
 export function SectionTitle({ light, emphasis, className }: SectionTitleProps) {
   return (
-    <FadeIn>
-      <div className={cn("flex flex-row flex-wrap text-start", className)}>
-        <div className="pr-2 text-2xl md:text-4xl font-extralight text-gray-500">
-          {light}
-        </div>
-        <h2 className="text-2xl md:text-4xl text-white/70 mb-5 gradient-text">
-          {emphasis}
-        </h2>
-      </div>
-    </FadeIn>
+    <SplitReveal
+      as="h2"
+      preset="chars"
+      stagger={0.03}
+      className={cn(
+        "heading mb-8 text-[clamp(2.25rem,5.2vw,4.5rem)] text-white md:mb-12",
+        className
+      )}
+    >
+      <span className="text-white/35">{light}</span> {emphasis}
+    </SplitReveal>
   );
 }

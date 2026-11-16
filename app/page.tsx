@@ -7,20 +7,29 @@ import { StatsUI } from "@/components/stats/stats-ui";
 import TechStackUI from "@/components/techstack/techstack-ui";
 import { AboutMe } from "@/components/about/about-me";
 import Publications from "@/components/publications/publications";
-import VintShowcase from "@/components/vint/vint-showcase";
+import UttaraShowcase from "@/components/uttara/uttara-showcase";
+import Process from "@/components/process/process";
+import Layers from "@/components/layers/layers";
+import { MeetingPoint } from "@/components/footer/meeting-point";
 
 export default function Home() {
   return (
-    <div className="flex flex-col">
+    <main className="flex flex-col">
       <Navbar />
       <Hero />
+      <AboutMe />
       <StatsUI />
       <TechStackUI />
-      <AboutMe />
       <WorkExperience />
+      <Process />
+      <Layers />
+      {/* "Worked with" is hidden until real quotes are in lib/testimonials.ts.
+          To bring it back: import Testimonials from
+          "@/components/testimonials/testimonials" and render <Testimonials /> here. */}
       <Publications />
-      <VintShowcase />
+      <UttaraShowcase />
       <Portfolio />
+      <MeetingPoint />
       <ContactUs
         email="zaralwinneirin@gmail.com"
         social_handle={[
@@ -43,6 +52,6 @@ export default function Home() {
           address: "Bangkok, Thailand",
         }}
       />
-    </div>
+    </main>
   );
 }
