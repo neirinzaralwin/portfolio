@@ -51,6 +51,13 @@ body {
   overflow-x: hidden;
 }
 
+/* `hidden` alone still lets iOS Safari pan sideways; `clip` does not. */
+html,
+body {
+  max-width: 100%;
+  overflow-x: clip;
+}
+
 ::selection {
   background: var(--accent);
   color: #0c0b0c;

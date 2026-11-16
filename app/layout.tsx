@@ -12,7 +12,23 @@ const display = localFont({
   variable: "--font-display",
 });
 
+// Link-preview images (app/opengraph-image.png, app/twitter-image.png) need an
+// absolute URL. Set NEXT_PUBLIC_SITE_URL to the live domain when deploying.
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : "http://localhost:3000");
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
+  openGraph: {
+    title: "Nei Rin Zara Lwin — AI Native Software Engineer",
+    description:
+      "Mobile and web products built with modern AI workflows — marketplaces, fintech, and hospitality.",
+    type: "website",
+  },
+  twitter: { card: "summary_large_image" },
   title: "Nei Rin Zara Lwin — AI Native Software Engineer",
   description:
     "Portfolio of Nei Rin Zara Lwin — AI Native Software Engineer building mobile and web products across marketplaces, fintech, and hospitality.",

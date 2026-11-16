@@ -62,10 +62,10 @@ export function BacklogScene() {
 /* ------------------------------------------------------------ Sprint board */
 
 const TICKETS = [
-  { text: "Auction countdown", cols: [1, 2, 2, 2, 2] },
-  { text: "Payment review screen", cols: [0, 1, 2, 2, 2] },
-  { text: "Push on outbid", cols: [0, 0, 1, 2, 2] },
-  { text: "Commission invoice", cols: [0, 0, 0, 1, 2] },
+  { text: "Auction countdown", short: "Countdown", cols: [1, 2, 2, 2, 2] },
+  { text: "Payment review screen", short: "Pay review", cols: [0, 1, 2, 2, 2] },
+  { text: "Push on outbid", short: "Outbid push", cols: [0, 0, 1, 2, 2] },
+  { text: "Commission invoice", short: "Invoice", cols: [0, 0, 0, 1, 2] },
 ];
 const COLS = ["To do", "In progress", "Done"];
 
@@ -105,7 +105,7 @@ export function SprintScene() {
             >
               <div
                 className={cn(
-                  "flex h-7 items-center gap-1.5 rounded-lg bg-white/[0.08] px-2 text-[11px] text-white/85 transition-colors duration-500",
+                  "flex h-7 items-center gap-1.5 rounded-lg bg-white/[0.08] px-1.5 text-[10px] text-white/85 transition-colors duration-500 sm:px-2 sm:text-[11px]",
                   col === 1 && "bg-[color-mix(in_srgb,var(--spot)_35%,transparent)]"
                 )}
               >
@@ -117,7 +117,8 @@ export function SprintScene() {
                 >
                   {col === 2 && <Check size={8} strokeWidth={4} />}
                 </span>
-                <span className="truncate">{t.text}</span>
+                <span className="hidden truncate sm:inline">{t.text}</span>
+                <span className="truncate sm:hidden">{t.short}</span>
               </div>
             </div>
           );

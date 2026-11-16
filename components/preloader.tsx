@@ -116,7 +116,7 @@ export function Preloader() {
 
       <div
         data-pre-word
-        className="invisible relative px-6 text-center text-[clamp(2.25rem,8.4vw,7.5rem)] font-bold leading-none tracking-[-0.045em] text-white"
+        className="invisible relative whitespace-nowrap px-4 text-center text-[clamp(1.25rem,8.4vw,7.5rem)] font-bold leading-none tracking-[-0.045em] text-white"
       >
         {NAME.split("").map((ch, i) => (
           <span
