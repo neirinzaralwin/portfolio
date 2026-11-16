@@ -1,9 +1,9 @@
 "use client";
 
-import { FadeIn } from "@/components/ui/transition";
+import { useRef } from "react";
 import { SectionTitle } from "@/components/ui/section-title";
 import { BRAND_GRADIENT_CLASSES } from "@/lib/brand";
-import styles from "./work-experience.module.css";
+import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/gsap";
 
 const colors = BRAND_GRADIENT_CLASSES;
 
@@ -55,74 +55,136 @@ const timelineItems = [
 ];
 
 export default function WorkExperience() {
+  const root = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      if (prefersReducedMotion()) return;
+
+      // The spine fills as you travel down the timeline.
+      gsap.fromTo(
+        "[data-tl-fill]",
+        { scaleY: 0 },
+        {
+          scaleY: 1,
+          ease: "none",
+          scrollTrigger: {
+            trigger: "[data-tl-track]",
+            start: "top 55%",
+            end: "bottom 55%",
+            scrub: 0.5,
+          },
+        }
+      );
+
+      gsap.utils.toArray<HTMLElement>("[data-tl-item]").forEach((item) => {
+        const dot = item.querySelector("[data-tl-dot]");
+        const copy = item.querySelectorAll("[data-tl-copy] > *");
+        const date = item.querySelector("[data-tl-date]");
+
+        gsap.set(dot, { scale: 0.35, opacity: 0.35 });
+        gsap.set(copy, { opacity: 0, x: 40, filter: "blur(8px)" });
+        gsap.set(date, { opacity: 0, x: -40, filter: "blur(8px)" });
+
+        ScrollTrigger.create({
+          trigger: item,
+          start: "top 62%",
+          once: true,
+          onEnter: () => {
+            gsap.to(dot, {
+              scale: 1,
+              opacity: 1,
+              duration: 0.9,
+              ease: "back.out(2.4)",
+            });
+            gsap.to([date, ...Array.from(copy)], {
+              opacity: 1,
+              x: 0,
+              filter: "blur(0px)",
+              duration: 1.2,
+              stagger: 0.09,
+              ease: "power3.out",
+              clearProps: "filter,transform",
+            });
+          },
+        });
+      });
+    },
+    { scope: root }
+  );
+
   return (
-    <div
+    <section
       id="experience"
-      className={`${styles.page_wrapper} w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-20 py-12 md:py-20`}
+      ref={root}
+      className="relative mx-auto w-full max-w-7xl px-4 py-20 sm:px-6 md:px-20 md:py-32"
     >
-      <SectionTitle light="Career" emphasis="Timeline" />
+      <SectionTitle light="Career" emphasis="timeline" />
 
-      <div className={styles.section_timeline}>
-        <div className={styles.container}>
-          <div className={styles.timeline_component}>
-            <div className={styles.timeline_progress} />
-
-            {timelineItems.map((item) => (
-              <FadeIn key={`${item.date}-${item.title}`} className="w-full">
-                <div className={styles.timeline_item}>
-                  <div className={styles.timeline_left}>
-                    <div
-                      className={`${styles.timeline_date_text} ${colors[item.colorIndex]} bg-clip-text text-transparent`}
-                    >
-                      {item.date}
-                    </div>
-                  </div>
-                  <div className={styles.timeline_centre}>
-                    <div
-                      className={`${styles.timeline_circle} ${colors[item.colorIndex]}`}
-                    />
-                  </div>
-                  <div className={styles.timeline_right}>
-                    <div className={styles.margin_bottom_medium}>
-                      <div className={styles.timeline_text}>{item.title}</div>
-                    </div>
-                    {item.company && (
-                      <div className={styles.margin_bottom_medium}>
-                        <div className={styles.inline_block}>
-                          {item.companyUrl ? (
-                            <a
-                              href={item.companyUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className={`${styles.timeline_link} ${styles.inline_block}`}
-                            >
-                              {item.company}
-                            </a>
-                          ) : (
-                            <span className={styles.timeline_link}>
-                              {item.company}
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                    )}
-                    {item.description && (
-                      <div className={styles.margin_bottom_xlarge}>
-                        <p className={styles.text_colour_lightgrey}>
-                          {item.description}
-                        </p>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </FadeIn>
-            ))}
-
-            <div className={styles.overlay_fade_top} />
-            <div className={styles.overlay_fade_bottom} />
-          </div>
+      <div data-tl-track className="relative mx-auto max-w-5xl">
+        {/* Spine */}
+        <div className="absolute bottom-0 left-[7px] top-0 w-px bg-white/10 md:left-1/2 md:-translate-x-1/2">
+          <div
+            data-tl-fill
+            className="h-full w-full origin-top bg-gradient-to-b from-[#aab5e5] via-[#668eab] to-[#97b999]"
+          />
         </div>
+
+        {timelineItems.map((item) => (
+          <div
+            key={`${item.date}-${item.title}`}
+            data-tl-item
+            className="group relative grid grid-cols-[15px_1fr] gap-x-6 py-10 md:grid-cols-[1fr_120px_1fr] md:gap-x-0 md:py-16"
+          >
+            <div className="col-start-2 mb-3 md:col-start-1 md:mb-0 md:text-right">
+              <div
+                data-tl-date
+                className={`heading inline-block text-xl md:sticky md:top-[45vh] md:text-[2rem] ${colors[item.colorIndex]} bg-clip-text text-transparent`}
+              >
+                {item.date}
+              </div>
+            </div>
+
+            <div className="col-start-1 row-start-1 flex justify-center md:col-start-2">
+              <div className="relative mt-1.5 md:mt-3">
+                <div
+                  data-tl-dot
+                  className={`h-[15px] w-[15px] rounded-full ${colors[item.colorIndex]} shadow-[0_0_0_6px_#0c0b0c] transition-shadow duration-700 group-hover:shadow-[0_0_0_6px_#0c0b0c,0_0_28px_6px_rgba(170,181,229,0.55)]`}
+                />
+              </div>
+            </div>
+
+            <div data-tl-copy className="col-start-2 md:col-start-3">
+              <h3 className="heading text-xl text-white transition-transform duration-700 ease-[cubic-bezier(.22,1,.36,1)] group-hover:translate-x-2 md:text-2xl">
+                {item.title}
+              </h3>
+              {item.company && (
+                <div className="mt-3">
+                  {item.companyUrl ? (
+                    <a
+                      href={item.companyUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="link-line text-base text-[var(--accent)]"
+                    >
+                      {item.company}
+                    </a>
+                  ) : (
+                    <span className="text-base text-[var(--accent)]">
+                      {item.company}
+                    </span>
+                  )}
+                </div>
+              )}
+              {item.description && (
+                <p className="mt-4 max-w-md text-sm leading-relaxed text-white/55 md:text-base">
+                  {item.description}
+                </p>
+              )}
+            </div>
+          </div>
+        ))}
       </div>
-    </div>
+    </section>
   );
 }

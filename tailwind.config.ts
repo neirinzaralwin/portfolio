@@ -13,6 +13,13 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        surface: "var(--surface)",
+        muted: "var(--muted)",
+        line: "var(--line)",
+        accent: "var(--accent)",
+      },
+      fontFamily: {
+        sans: ["var(--font-display)", "ui-sans-serif", "system-ui", "sans-serif"],
       },
       animation: {
         meteor: "meteor 5s linear infinite",

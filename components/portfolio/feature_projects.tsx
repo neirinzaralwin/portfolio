@@ -3,7 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { SiAppstore, SiGoogleplay } from "react-icons/si";
-import { FadeIn } from "@/components/ui/transition";
+import { Reveal, ImageReveal } from "@/components/motion/reveal";
+import { SplitReveal } from "@/components/motion/split-reveal";
 import { SectionTitle } from "@/components/ui/section-title";
 
 type FeaturedApp = {
@@ -74,35 +75,41 @@ const featuredApps: FeaturedApp[] = [
 
 const FeatureProjects = () => {
   return (
-    <div className="mt-12 md:mt-16">
-      <SectionTitle light="Featured" emphasis="Applications" />
+    <div className="mt-20 md:mt-32">
+      <SectionTitle light="Featured" emphasis="applications" />
 
-      <div className="mt-10 md:mt-14 space-y-16 md:space-y-24">
+      <div className="mt-10 md:mt-14 space-y-20 md:space-y-32">
         {featuredApps.map((app, index) => (
-          <FadeIn key={app.index}>
             <article
+              key={app.index}
               className={`grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start ${
                 index % 2 === 1 ? "lg:[&>*:first-child]:order-2" : ""
               }`}
             >
-              <div className="lg:col-span-5">
-                <p className="text-xs tracking-[0.2em] text-gray-500 mb-3">
-                  {app.index}
-                </p>
-                <h3 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-white/80 mb-4">
+              <div className="lg:sticky lg:top-32 lg:col-span-5">
+                <SplitReveal
+                  as="h3"
+                  preset="chars"
+                  stagger={0.03}
+                  className="display mb-5 text-[clamp(2.5rem,5vw,4.5rem)] text-white"
+                >
                   {app.title}
-                </h3>
-                <p className="text-sm md:text-base text-gray-500 leading-relaxed max-w-md">
+                </SplitReveal>
+                <SplitReveal
+                  as="p"
+                  delay={0.15}
+                  className="max-w-md text-sm leading-relaxed text-white/55 md:text-base"
+                >
                   {app.description}
-                </p>
+                </SplitReveal>
                 {(app.appstore || app.playstore) && (
-                  <div className="mt-5 flex flex-wrap items-center gap-4">
+                  <Reveal delay={0.3} className="mt-6 flex flex-wrap items-center gap-6">
                     {app.appstore && (
                       <Link
                         href={app.appstore}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 text-sm text-white/60 hover:text-white transition-colors"
+                        className="link-line text-sm text-white/70 transition-colors duration-500 hover:text-white"
                         aria-label={`${app.title} on App Store`}
                       >
                         <SiAppstore size={18} />
@@ -114,35 +121,39 @@ const FeatureProjects = () => {
                         href={app.playstore}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 text-sm text-white/60 hover:text-white transition-colors"
+                        className="link-line text-sm text-white/70 transition-colors duration-500 hover:text-white"
                         aria-label={`${app.title} on Google Play`}
                       >
                         <SiGoogleplay size={18} />
                         Google Play
                       </Link>
                     )}
-                  </div>
+                  </Reveal>
                 )}
               </div>
 
               <div className="lg:col-span-7 grid grid-cols-2 gap-3 sm:gap-4">
-                {app.images.map((image) => (
-                  <div
+                {app.images.map((image, i) => (
+                  <ImageReveal
                     key={image.src}
-                    className="relative aspect-square overflow-hidden rounded-xl bg-white/5"
+                    delay={i * 0.15}
+                    className={`group relative aspect-square rounded-2xl bg-white/5 ${
+                      i === 1 ? "lg:mt-16" : ""
+                    }`}
                   >
-                    <Image
-                      src={image.src}
-                      alt={image.alt}
-                      fill
-                      sizes="(max-width: 768px) 50vw, 30vw"
-                      className="object-cover"
-                    />
-                  </div>
+                    <div className="relative h-full w-full">
+                      <Image
+                        src={image.src}
+                        alt={image.alt}
+                        fill
+                        sizes="(max-width: 768px) 50vw, 30vw"
+                        className="object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(.22,1,.36,1)] group-hover:scale-[1.06]"
+                      />
+                    </div>
+                  </ImageReveal>
                 ))}
               </div>
             </article>
-          </FadeIn>
         ))}
       </div>
     </div>

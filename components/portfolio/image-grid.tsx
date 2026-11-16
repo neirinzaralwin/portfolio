@@ -1,6 +1,7 @@
 "use client";
 
-import { FadeIn } from "../ui/transition";
+import { Reveal, ImageReveal } from "@/components/motion/reveal";
+import { SplitReveal } from "@/components/motion/split-reveal";
 import Link from "next/link";
 import { SiAppstore, SiGoogleplay } from "react-icons/si";
 import Image from "next/image";
@@ -49,7 +50,7 @@ function StoreLinks({ item }: { item: ImageGridProps }) {
           href={item.appstore}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-white/50 hover:text-white transition-colors"
+          className="text-white/50 transition-[color,transform] duration-500 ease-[cubic-bezier(.22,1,.36,1)] hover:-translate-y-1 hover:text-white"
           aria-label={`${item.title} on App Store`}
         >
           <SiAppstore size={18} />
@@ -60,7 +61,7 @@ function StoreLinks({ item }: { item: ImageGridProps }) {
           href={item.playstore}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-white/50 hover:text-white transition-colors"
+          className="text-white/50 transition-[color,transform] duration-500 ease-[cubic-bezier(.22,1,.36,1)] hover:-translate-y-1 hover:text-white"
           aria-label={`${item.title} on Google Play`}
         >
           <SiGoogleplay size={18} />
@@ -78,20 +79,18 @@ function ProjectMeta({
   index: number;
 }) {
   return (
-    <FadeIn transition={{ duration: 0.35, delay: index * 0.04 }}>
-      <article className="flex flex-col max-w-[16rem]">
-        <span className="text-xs text-gray-500 tabular-nums mb-3">
-          {String(index + 1).padStart(2, "0")}
-        </span>
-        <h3 className="text-sm sm:text-base font-semibold uppercase tracking-wide text-white/85">
+    <Reveal delay={index * 0.12}>
+      <article className="group flex max-w-[16rem] flex-col">
+        <span className="mb-4 block h-px w-full origin-left bg-white/15 transition-colors duration-700 group-hover:bg-[var(--accent)]" />
+        <h3 className="heading text-xl text-white transition-transform duration-700 ease-[cubic-bezier(.22,1,.36,1)] group-hover:translate-x-1.5 md:text-2xl">
           {item.title}
         </h3>
-        <p className="mt-2 text-sm text-gray-500 leading-relaxed">
+        <p className="mt-2 text-sm leading-relaxed text-white/55">
           {item.description}
         </p>
         <StoreLinks item={item} />
       </article>
-    </FadeIn>
+    </Reveal>
   );
 }
 
@@ -107,30 +106,34 @@ function ProjectImage({
   const href = item.appstore ?? item.playstore;
 
   const image = (
-    <div className="relative aspect-square w-full overflow-hidden bg-white/5">
-      <Image
-        src={item.imageUrl}
-        alt={item.title}
-        fill
-        sizes="(max-width: 768px) 70vw, 22vw"
-        className={`object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03] ${
-          blackAndWhite ? "grayscale" : ""
-        }`}
-      />
-    </div>
+    <ImageReveal
+      delay={index * 0.12}
+      className="relative aspect-square w-full rounded-2xl bg-white/5"
+    >
+      <div className="relative h-full w-full">
+        <Image
+          src={item.imageUrl}
+          alt={item.title}
+          fill
+          sizes="(max-width: 768px) 70vw, 22vw"
+          className={`object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(.22,1,.36,1)] group-hover:scale-[1.08] ${
+            blackAndWhite ? "grayscale" : ""
+          }`}
+        />
+      </div>
+    </ImageReveal>
   );
 
   return (
-    <FadeIn
-      transition={{ duration: 0.35, delay: 0.08 + index * 0.05 }}
-      className="min-w-[70%] snap-center sm:min-w-0 sm:w-full"
-    >
+    <div className="min-w-[70%] snap-center sm:w-full sm:min-w-0">
       {href ? (
         <Link
           href={href}
           target="_blank"
           rel="noopener noreferrer"
           className="group block"
+          data-cursor="view"
+          data-cursor-label="Open"
           aria-label={`Open ${item.title}`}
         >
           {image}
@@ -138,7 +141,7 @@ function ProjectImage({
       ) : (
         <div className="group">{image}</div>
       )}
-    </FadeIn>
+    </div>
   );
 }
 
@@ -165,11 +168,14 @@ export function BlurFadeImages({ blackAndWhite = false }: BlurFadeImagesProps) {
 
       {/* Bottom: editorial headline + tight image triptych */}
       <div className="mt-16 md:mt-24 lg:mt-28 grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-8 lg:items-start">
-        <FadeIn className="lg:col-span-4">
-          <h3 className="max-w-sm text-xl sm:text-2xl md:text-3xl font-medium leading-[1.2] tracking-tight text-white/80 text-balance">
-            Apps people open every day— for learning, travel, and reading.
-          </h3>
-        </FadeIn>
+        <div className="lg:col-span-4">
+          <SplitReveal
+            as="h3"
+            className="heading max-w-sm text-2xl text-white md:text-3xl lg:text-4xl"
+          >
+            Apps people open every day — for learning, travel, and reading.
+          </SplitReveal>
+        </div>
 
         <div className="lg:col-span-8">
           {/* Mobile: horizontal snap carousel; desktop: tight 3-up row */}

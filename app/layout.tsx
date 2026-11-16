@@ -3,13 +3,13 @@ import "./globals.css";
 import { Providers } from "@/components/providers";
 import localFont from "next/font/local";
 
-// Load the local font
-const sfPro = localFont({
-  src: "../public/fonts/SFPRODISPLAYREGULAR.otf",
-  weight: "normal",
+// Wix Madefor Display (variable, OFL) — see public/fonts/WixMadeforDisplay-LICENSE.txt
+const display = localFont({
+  src: "../public/fonts/WixMadeforDisplay-Variable.woff2",
+  weight: "400 800",
   style: "normal",
   display: "swap",
-  variable: "--font-sfpro",
+  variable: "--font-display",
 });
 
 export const metadata: Metadata = {
@@ -24,7 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`dark ${sfPro.variable}`}>
+    <html lang="en" className={`dark ${display.variable}`}>
       <body>
         <Providers>{children}</Providers>
       </body>

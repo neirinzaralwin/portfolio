@@ -6,9 +6,9 @@ import FeatureProjects from "./feature_projects";
 
 const Portfolio = () => {
   return (
-    <section id="projects" className="w-full px-4 sm:px-6 md:px-20 my-16 md:my-24">
+    <section id="projects" className="w-full px-4 sm:px-6 md:px-20 my-20 md:my-32">
       <div className="w-full max-w-7xl mx-auto">
-        <SectionTitle light="Selected" emphasis="Projects" />
+        <SectionTitle light="Selected" emphasis="projects" />
         <BlurFadeImages />
         <FeatureProjects />
       </div>
