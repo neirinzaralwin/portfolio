@@ -127,10 +127,10 @@ const Hero = () => {
           marketplaces and fintech to hospitality systems.
         </SplitReveal>
 
-        <Reveal intro delay={1.4} className="mx-auto md:mx-0">
-          <div className="flex items-center gap-5 rounded-[1.4rem] border border-white/[0.08] bg-white/[0.06] p-2.5 pl-5 backdrop-blur-xl">
+        <Reveal intro delay={1.4} className="mx-auto w-full max-w-sm md:mx-0 md:w-auto md:max-w-none">
+          <div className="flex items-center justify-between gap-4 rounded-[1.4rem] border border-white/[0.08] bg-white/[0.06] p-2.5 pl-5 backdrop-blur-xl">
             <div className="text-left">
-              <p className="flex items-center gap-2 text-sm font-medium text-white">
+              <p className="flex items-center gap-2 whitespace-nowrap text-sm font-medium text-white">
                 <span className="relative flex h-2 w-2">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#97b999] opacity-70" />
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-[#97b999]" />
@@ -138,7 +138,7 @@ const Hero = () => {
                 Open to new projects
               </p>
               <p className="mt-0.5 text-xs text-white/50">
-                Now based in Bangkok, Thailand
+                Bangkok, Thailand
               </p>
             </div>
             <MainButton

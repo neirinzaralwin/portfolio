@@ -6,6 +6,8 @@ import { BRAND_GRADIENT_CLASSES } from "@/lib/brand";
 import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/gsap";
 
 const colors = BRAND_GRADIENT_CLASSES;
+/** Light stop of each brand gradient: readable as text on the dark page. */
+const DATE_COLORS = ["#8fb3cf", "#97b999", "#aab5e5", "#b1ab86"];
 
 const timelineItems = [
   {
@@ -139,7 +141,8 @@ export default function WorkExperience() {
             <div className="col-start-2 mb-3 md:col-start-1 md:mb-0 md:text-right">
               <div
                 data-tl-date
-                className={`heading inline-block text-xl md:sticky md:top-[45vh] md:text-[2rem] ${colors[item.colorIndex]} bg-clip-text text-transparent`}
+                className="heading inline-block text-xl md:sticky md:top-[45vh] md:text-[2rem]"
+                style={{ color: DATE_COLORS[item.colorIndex] }}
               >
                 {item.date}
               </div>

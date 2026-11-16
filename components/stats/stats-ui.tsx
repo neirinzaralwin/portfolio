@@ -9,6 +9,12 @@ import { gsap, useGSAP, prefersReducedMotion } from "@/lib/gsap";
 
 const YEARS = [2020, 2021, 2022, 2023, 2024, 2025, 2026];
 const PROJECTS = 15;
+/** Two journal papers and one book chapter — see the Research section. */
+const PUBLICATIONS = [
+  { where: "Journal article", when: "2025" },
+  { where: "Journal article", when: "2026" },
+  { where: "Springer chapter", when: "Forthcoming" },
+];
 
 export const StatsUI = () => {
   const root = useRef<HTMLDivElement>(null);
@@ -59,12 +65,12 @@ export const StatsUI = () => {
           },
           0.6
         )
-        // Age: the ring sweeps round.
+        // Publications: the three entries land one by one.
         .fromTo(
-          "[data-ring]",
-          { strokeDashoffset: 1 },
-          { strokeDashoffset: 0.25, duration: 2.2, ease: "power3.inOut" },
-          0.5
+          "[data-pub]",
+          { opacity: 0, x: -14 },
+          { opacity: 1, x: 0, duration: 0.7, stagger: 0.16, ease: "power3.out" },
+          0.7
         );
     },
     { scope: root }
@@ -80,7 +86,7 @@ export const StatsUI = () => {
           <div data-stat-card className="lg:col-span-5">
             <SpotlightCard
               color="var(--ocean)"
-              className="group flex h-full min-h-[21rem] flex-col justify-between overflow-hidden p-6 md:p-8"
+              className="group flex h-full min-h-[17rem] flex-col justify-between overflow-hidden p-6 md:min-h-[21rem] md:p-8"
             >
               <GridBackdrop className="absolute inset-0 -z-10" />
               <WireArt
@@ -120,7 +126,7 @@ export const StatsUI = () => {
           <div data-stat-card className="lg:col-span-4">
             <SpotlightCard
               color="var(--sage)"
-              className="group flex h-full min-h-[21rem] flex-col justify-between p-6 md:p-8"
+              className="group flex h-full min-h-[17rem] flex-col justify-between p-6 md:min-h-[21rem] md:p-8"
             >
               <div>
                 <div className="display text-[clamp(5rem,10vw,9rem)] text-white">
@@ -156,40 +162,34 @@ export const StatsUI = () => {
             </SpotlightCard>
           </div>
 
-          {/* Age */}
+          {/* Research publications */}
           <div data-stat-card className="lg:col-span-3">
             <SpotlightCard
               color="var(--lavender)"
-              className="group relative flex h-full min-h-[21rem] flex-col justify-between overflow-hidden p-6 md:p-8"
+              className="group flex h-full min-h-[15rem] flex-col justify-between p-6 md:min-h-[21rem] md:p-8"
             >
-              <svg
-                viewBox="0 0 200 200"
-                className="pointer-events-none absolute -bottom-14 -right-14 h-56 w-56 -rotate-90 transition-transform duration-[1400ms] ease-[cubic-bezier(.22,1,.36,1)] group-hover:-rotate-45"
-                fill="none"
-                aria-hidden
-              >
-                <circle cx="100" cy="100" r="84" stroke="rgba(255,255,255,0.08)" strokeWidth="1" />
-                <circle cx="100" cy="100" r="64" stroke="rgba(255,255,255,0.06)" strokeWidth="1" strokeDasharray="2 6" />
-                <circle
-                  data-ring
-                  cx="100"
-                  cy="100"
-                  r="84"
-                  pathLength={1}
-                  stroke="var(--lavender)"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeDasharray="1"
-                  strokeDashoffset="0.25"
-                />
-              </svg>
               <div>
                 <div className="display text-[clamp(5rem,10vw,9rem)] text-white">
-                  <CountUp to={25} className="tabular-nums" />
+                  <CountUp to={PUBLICATIONS.length} className="tabular-nums" />
                 </div>
-                <p className="mt-1 text-sm text-white/45 md:text-base">Years</p>
-                <p className="text-base text-white/90 md:text-lg">Old</p>
+                <p className="mt-1 text-sm text-white/45 md:text-base">Research</p>
+                <p className="text-base text-white/90 md:text-lg">Publications</p>
               </div>
+              <ul className="mt-10 space-y-2">
+                {PUBLICATIONS.map((pub) => (
+                  <li
+                    key={pub.where + pub.when}
+                    data-pub
+                    className="flex items-center justify-between gap-3 border-t border-white/10 pt-2 text-xs text-white/60 transition-colors duration-500 group-hover:border-[color-mix(in_srgb,var(--lavender)_45%,transparent)]"
+                  >
+                    <span className="flex items-center gap-2 text-white/85">
+                      <span className="h-1.5 w-1.5 rounded-full bg-[var(--lavender)]" />
+                      {pub.where}
+                    </span>
+                    <span className="tabular-nums">{pub.when}</span>
+                  </li>
+                ))}
+              </ul>
             </SpotlightCard>
           </div>
         </div>
